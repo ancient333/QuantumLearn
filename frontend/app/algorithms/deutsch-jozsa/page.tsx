@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -81,9 +81,9 @@ export default function DeutschJozsaPage() {
       number: 1,
       title: "Initialize the Qubits",
       description:
-        "The algorithm starts with the input qubit in |0⟩ and the auxiliary qubit in |1⟩.",
+        "The algorithm starts with the input qubit in |0âŸ© and the auxiliary qubit in |1âŸ©.",
       circuit:
-        "q₀: |0⟩    q₁: |1⟩",
+        "qâ‚€: |0âŸ©    qâ‚: |1âŸ©",
     },
 
     {
@@ -92,7 +92,7 @@ export default function DeutschJozsaPage() {
       description:
         "Hadamard gates are applied to create a superposition of possible input states.",
       circuit:
-        "q₀: |0⟩ ──H──    q₁: |1⟩ ──H──",
+        "qâ‚€: |0âŸ© â”€â”€Hâ”€â”€    qâ‚: |1âŸ© â”€â”€Hâ”€â”€",
     },
 
     {
@@ -104,8 +104,8 @@ export default function DeutschJozsaPage() {
           : "The balanced oracle produces different outputs for different input states.",
       circuit:
         oracleType === "constant"
-          ? "q₀ ──H──┌───────┐"
-          : "q₀ ──H──┌───────┐",
+          ? "qâ‚€ â”€â”€Hâ”€â”€â”Œâ”€â”€â”€â”€â”€â”€â”€â”"
+          : "qâ‚€ â”€â”€Hâ”€â”€â”Œâ”€â”€â”€â”€â”€â”€â”€â”",
     },
 
     {
@@ -114,7 +114,7 @@ export default function DeutschJozsaPage() {
       description:
         "A second Hadamard operation allows quantum interference to reveal information about the oracle.",
       circuit:
-        "q₀ ──H── Oracle ──H──",
+        "qâ‚€ â”€â”€Hâ”€â”€ Oracle â”€â”€Hâ”€â”€",
     },
 
     {
@@ -123,7 +123,7 @@ export default function DeutschJozsaPage() {
       description:
         "The input qubit is measured. The measurement pattern determines whether the oracle is constant or balanced.",
       circuit:
-        "q₀ ──H── Oracle ──H──M",
+        "qâ‚€ â”€â”€Hâ”€â”€ Oracle â”€â”€Hâ”€â”€M",
     },
 
     {
@@ -134,7 +134,7 @@ export default function DeutschJozsaPage() {
           ? "If the input register is measured as 0, the oracle is classified as constant."
           : "If a non-zero result appears in the input register, the oracle is classified as balanced.",
       circuit:
-        "Measurement → Classification",
+        "Measurement â†’ Classification",
     },
   ];
 
@@ -154,7 +154,7 @@ export default function DeutschJozsaPage() {
 
         const response =
           await fetch(
-            "${process.env.NEXT_PUBLIC_API_URL}/algorithms/deutsch-jozsa",
+            `${process.env.NEXT_PUBLIC_API_URL}/algorithms/deutsch-jozsa`,
             {
               method: "POST",
 
@@ -175,7 +175,7 @@ export default function DeutschJozsaPage() {
 
         if (!response.ok) {
           throw new Error(
-            "Deutsch–Jozsa simulation failed."
+            "Deutschâ€“Jozsa simulation failed."
           );
         }
 
@@ -185,7 +185,7 @@ export default function DeutschJozsaPage() {
 
 
         console.log(
-          "Deutsch–Jozsa result:",
+          "Deutschâ€“Jozsa result:",
           data
         );
 
@@ -255,7 +255,7 @@ export default function DeutschJozsaPage() {
          */
 
         const algorithmName =
-          "Deutsch–Jozsa";
+          "Deutschâ€“Jozsa";
 
 
         const alreadyCompleted =
@@ -344,7 +344,7 @@ export default function DeutschJozsaPage() {
           "quantumAlgorithmContext",
           JSON.stringify({
             algorithm:
-              "Deutsch–Jozsa",
+              "Deutschâ€“Jozsa",
 
             oracle_type:
               data.oracle_type,
@@ -371,7 +371,7 @@ export default function DeutschJozsaPage() {
 
 
         console.log(
-          `Deutsch–Jozsa XP earned: ${earnedXP}`
+          `Deutschâ€“Jozsa XP earned: ${earnedXP}`
         );
 
         console.log(
@@ -381,12 +381,12 @@ export default function DeutschJozsaPage() {
       } catch (error) {
 
         console.error(
-          "Error running Deutsch–Jozsa:",
+          "Error running Deutschâ€“Jozsa:",
           error
         );
 
         alert(
-          "Unable to run the Deutsch–Jozsa simulation. Please make sure the backend server is running."
+          "Unable to run the Deutschâ€“Jozsa simulation. Please make sure the backend server is running."
         );
 
       } finally {
@@ -482,14 +482,14 @@ export default function DeutschJozsaPage() {
       ) {
 
         return (
-          "The measurement result indicates that the oracle behaves the same way for all possible inputs. The Deutsch–Jozsa algorithm identifies this as a constant function."
+          "The measurement result indicates that the oracle behaves the same way for all possible inputs. The Deutschâ€“Jozsa algorithm identifies this as a constant function."
         );
 
       }
 
 
       return (
-        "The measurement result indicates that the oracle behaves differently for different inputs. The Deutsch–Jozsa algorithm therefore identifies it as a balanced function."
+        "The measurement result indicates that the oracle behaves differently for different inputs. The Deutschâ€“Jozsa algorithm therefore identifies it as a balanced function."
       );
 
     };
@@ -576,7 +576,7 @@ export default function DeutschJozsaPage() {
 
           <h1 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">
 
-            Deutsch–Jozsa Algorithm
+            Deutschâ€“Jozsa Algorithm
 
           </h1>
 
@@ -785,7 +785,7 @@ export default function DeutschJozsaPage() {
 
               <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-4 font-mono text-sm text-purple-300">
 
-                f(0) ≠ f(1)
+                f(0) â‰  f(1)
 
               </div>
 
@@ -807,7 +807,7 @@ export default function DeutschJozsaPage() {
 
             {loading
               ? "Running Quantum Simulation..."
-              : "Run Deutsch–Jozsa Simulation →"}
+              : "Run Deutschâ€“Jozsa Simulation â†’"}
 
           </button>
 
@@ -830,7 +830,7 @@ export default function DeutschJozsaPage() {
 
               <p className="mt-1 text-sm text-slate-500">
                 Understand what happens at each
-                stage of Deutsch–Jozsa.
+                stage of Deutschâ€“Jozsa.
               </p>
 
             </div>
@@ -842,7 +842,7 @@ export default function DeutschJozsaPage() {
               }
               className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-400/30 hover:text-cyan-300"
             >
-              ↻ Restart
+              â†» Restart
             </button>
 
           </div>
@@ -873,7 +873,7 @@ export default function DeutschJozsaPage() {
 
                     {currentStep >
                     step.number
-                      ? "✓"
+                      ? "âœ“"
                       : step.number}
 
                   </div>
@@ -968,7 +968,7 @@ export default function DeutschJozsaPage() {
               }
               className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-slate-300 transition hover:border-white/20 disabled:cursor-not-allowed disabled:opacity-30"
             >
-              ← Previous
+              â† Previous
             </button>
 
 
@@ -981,7 +981,7 @@ export default function DeutschJozsaPage() {
                 }
                 className="rounded-xl bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
               >
-                Next Step →
+                Next Step â†’
               </button>
 
             ) : (
@@ -995,7 +995,7 @@ export default function DeutschJozsaPage() {
               >
                 {loading
                   ? "Running..."
-                  : "Run Simulation →"}
+                  : "Run Simulation â†’"}
               </button>
 
             )}
@@ -1014,7 +1014,7 @@ export default function DeutschJozsaPage() {
           <div>
 
             <h2 className="text-lg font-semibold">
-              Deutsch–Jozsa Circuit
+              Deutschâ€“Jozsa Circuit
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
@@ -1033,7 +1033,7 @@ export default function DeutschJozsaPage() {
               <div className="flex items-center gap-3">
 
                 <span className="w-10 text-slate-500">
-                  q₀
+                  qâ‚€
                 </span>
 
                 <div className="h-[2px] flex-1 bg-slate-700" />
@@ -1068,7 +1068,7 @@ export default function DeutschJozsaPage() {
               <div className="flex items-center gap-3">
 
                 <span className="w-10 text-slate-500">
-                  q₁
+                  qâ‚
                 </span>
 
                 <div className="h-[2px] flex-1 bg-slate-700" />
@@ -1086,13 +1086,13 @@ export default function DeutschJozsaPage() {
                 <div className="h-[2px] w-12 bg-slate-700" />
 
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-500">
-                  —
+                  â€”
                 </div>
 
                 <div className="h-[2px] w-12 bg-slate-700" />
 
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-slate-500">
-                  —
+                  â€”
                 </div>
 
               </div>
@@ -1258,7 +1258,7 @@ export default function DeutschJozsaPage() {
                     >
 
                       <span className="font-mono text-cyan-300">
-                        |{state}⟩
+                        |{state}âŸ©
                       </span>
 
                       <span className="font-semibold">
@@ -1328,7 +1328,7 @@ export default function DeutschJozsaPage() {
               </h3>
 
               <p className="mt-2 text-sm leading-6 text-slate-400">
-                Your actual Deutsch–Jozsa simulation result has been saved for the AI Tutor.
+                Your actual Deutschâ€“Jozsa simulation result has been saved for the AI Tutor.
                 Ask it to explain the oracle, classification, measurement result, and why the algorithm reached its conclusion.
               </p>
 
@@ -1336,7 +1336,7 @@ export default function DeutschJozsaPage() {
                 href="/tutor"
                 className="mt-5 inline-block rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-black transition hover:bg-cyan-300"
               >
-                Ask AI Tutor →
+                Ask AI Tutor â†’
               </Link>
 
             </div>
@@ -1428,7 +1428,7 @@ export default function DeutschJozsaPage() {
             href="/algorithms"
             className="text-sm text-slate-400 transition hover:text-cyan-300"
           >
-            ← Back to Algorithms
+            â† Back to Algorithms
           </Link>
 
 
@@ -1438,7 +1438,7 @@ export default function DeutschJozsaPage() {
               href="/algorithms/grover"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-slate-300 transition hover:border-cyan-400/30 hover:text-cyan-300"
             >
-              Grover →
+              Grover â†’
             </Link>
 
 
@@ -1446,7 +1446,7 @@ export default function DeutschJozsaPage() {
               href="/algorithms/quantum-teleportation"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-slate-300 transition hover:border-cyan-400/30 hover:text-cyan-300"
             >
-              Teleportation →
+              Teleportation â†’
             </Link>
 
           </div>
@@ -1465,7 +1465,7 @@ export default function DeutschJozsaPage() {
             Learn
           </span>
 
-          {" "}• Interactive Quantum Education
+          {" "}â€¢ Interactive Quantum Education
 
         </footer>
 
@@ -1475,5 +1475,7 @@ export default function DeutschJozsaPage() {
 
   );
 }
+
+
 
 

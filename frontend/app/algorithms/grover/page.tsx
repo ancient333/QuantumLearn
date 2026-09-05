@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -50,7 +50,7 @@ const steps: Step[] = [
   {
     title: "Initialize",
     description:
-      "Prepare the two qubits in the |00⟩ state.",
+      "Prepare the two qubits in the |00âŸ© state.",
   },
   {
     title: "Superposition",
@@ -110,7 +110,7 @@ export default function GroverPage() {
 
       const response =
         await fetch(
-          "${process.env.NEXT_PUBLIC_API_URL}/algorithms/grover",
+          "https://quantumlearn-1.onrender.com/algorithms/grover",
           {
             method: "POST",
 
@@ -389,7 +389,7 @@ export default function GroverPage() {
               hover:text-cyan-300
             "
           >
-            ← Back to Algorithms
+            â† Back to Algorithms
           </Link>
 
 
@@ -507,7 +507,7 @@ export default function GroverPage() {
                     }
                   `}
                 >
-                  |{state}⟩
+                  |{state}âŸ©
                 </button>
 
               )
@@ -659,7 +659,7 @@ export default function GroverPage() {
                 text-cyan-300
               "
             >
-              |00⟩ + |01⟩ + |10⟩ + |11⟩
+              |00âŸ© + |01âŸ© + |10âŸ© + |11âŸ©
             </div>
 
 
@@ -711,7 +711,7 @@ export default function GroverPage() {
               disabled:opacity-40
             "
           >
-            ← Previous
+            â† Previous
           </button>
 
 
@@ -738,7 +738,7 @@ export default function GroverPage() {
               disabled:opacity-40
             "
           >
-            Next →
+            Next â†’
           </button>
 
 
@@ -902,7 +902,7 @@ export default function GroverPage() {
                     mt-2
                   "
                 >
-                  Found |{result.found_state}⟩
+                  Found |{result.found_state}âŸ©
                 </h2>
 
 
@@ -931,7 +931,7 @@ export default function GroverPage() {
                   font-semibold
                 "
               >
-                Algorithm Completed ✓
+                Algorithm Completed âœ“
               </div>
 
             </div>
@@ -1037,7 +1037,7 @@ export default function GroverPage() {
                           text-cyan-300
                         "
                       >
-                        |{item.state}⟩
+                        |{item.state}âŸ©
                       </span>
 
 
@@ -1114,7 +1114,7 @@ export default function GroverPage() {
                 hover:bg-cyan-300
               "
             >
-              Ask AI Tutor →
+              Ask AI Tutor â†’
             </Link>
 
           </section>
@@ -1127,5 +1127,6 @@ export default function GroverPage() {
 
   );
 }
+
 
 

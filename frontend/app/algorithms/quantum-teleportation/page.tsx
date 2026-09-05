@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -63,7 +63,7 @@ export default function QuantumTeleportationPage() {
     try {
 
       const response = await fetch(
-        "${process.env.NEXT_PUBLIC_API_URL}/algorithms/quantum-teleportation",
+        "https://quantumlearn-1.onrender.com/algorithms/quantum-teleportation",
         {
           method: "POST",
 
@@ -344,7 +344,7 @@ export default function QuantumTeleportationPage() {
           href="/algorithms"
           className="text-sm text-slate-400 transition hover:text-cyan-400"
         >
-          ← Back to Algorithms
+          â† Back to Algorithms
         </Link>
 
 
@@ -413,7 +413,7 @@ export default function QuantumTeleportationPage() {
               >
 
                 <div className="text-3xl font-bold">
-                  |0⟩
+                  |0âŸ©
                 </div>
 
                 <div className="mt-2 text-xs text-slate-400">
@@ -436,7 +436,7 @@ export default function QuantumTeleportationPage() {
               >
 
                 <div className="text-3xl font-bold">
-                  |1⟩
+                  |1âŸ©
                 </div>
 
                 <div className="mt-2 text-xs text-slate-400">
@@ -455,7 +455,7 @@ export default function QuantumTeleportationPage() {
               </p>
 
               <p className="mt-2 text-3xl font-bold text-cyan-300">
-                |{inputState}⟩
+                |{inputState}âŸ©
               </p>
 
             </div>
@@ -503,7 +503,7 @@ export default function QuantumTeleportationPage() {
                   <div className="flex flex-1 items-center">
 
                     <div className="flex h-14 w-20 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 font-bold">
-                      |{inputState}⟩
+                      |{inputState}âŸ©
                     </div>
 
                     <div className="h-px flex-1 bg-white/20" />
@@ -540,7 +540,7 @@ export default function QuantumTeleportationPage() {
                     <div className="h-px flex-1 bg-white/20" />
 
                     <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/20 bg-white/5 font-bold">
-                      ●
+                      â—
                     </div>
 
                     <div className="h-px flex-1 bg-white/20" />
@@ -571,7 +571,7 @@ export default function QuantumTeleportationPage() {
                     <div className="h-px flex-1 bg-white/20" />
 
                     <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-emerald-400/20 bg-emerald-400/10 font-bold">
-                      ⊕
+                      âŠ•
                     </div>
 
                     <div className="h-px flex-1 bg-white/20" />
@@ -646,7 +646,7 @@ export default function QuantumTeleportationPage() {
 
               <p className="mt-2 text-sm leading-6 text-slate-400">
                 Alice prepares the quantum state
-                |{inputState}⟩ that she wants to
+                |{inputState}âŸ© that she wants to
                 teleport.
               </p>
 
@@ -784,7 +784,7 @@ export default function QuantumTeleportationPage() {
             >
               {loading
                 ? "Running Simulation..."
-                : "Run Simulation →"}
+                : "Run Simulation â†’"}
             </button>
 
           </div>
@@ -922,7 +922,7 @@ export default function QuantumTeleportationPage() {
                 href="/tutor"
                 className="mt-6 inline-flex rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-5 py-3 font-semibold text-cyan-400 transition hover:bg-cyan-400/20"
               >
-                Ask AI Tutor about this result →
+                Ask AI Tutor about this result â†’
               </Link>
 
             </div>
@@ -1124,21 +1124,21 @@ export default function QuantumTeleportationPage() {
             href="/algorithms"
             className="rounded-2xl border border-white/10 bg-white/[0.025] px-6 py-4 text-center font-semibold text-slate-300 transition hover:border-white/20 hover:text-white"
           >
-            ← All Algorithms
+            â† All Algorithms
           </Link>
 
           <Link
             href="/dashboard"
             className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-6 py-4 text-center font-semibold text-cyan-400 transition hover:bg-cyan-400/20"
           >
-            Open Quantum Lab →
+            Open Quantum Lab â†’
           </Link>
 
           <Link
             href="/tutor"
             className="rounded-2xl bg-cyan-400 px-6 py-4 text-center font-semibold text-slate-950 transition hover:bg-cyan-300"
           >
-            Ask AI Tutor →
+            Ask AI Tutor â†’
           </Link>
 
         </div>
@@ -1148,5 +1148,6 @@ export default function QuantumTeleportationPage() {
     </main>
   );
 }
+
 
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -39,7 +39,7 @@ export default function ShorPage() {
 
     try {
       const response = await fetch(
-        "${process.env.NEXT_PUBLIC_API_URL}/algorithms/shor",
+        "https://quantumlearn-1.onrender.com/algorithms/shor",
         {
           method: "POST",
           headers: {
@@ -97,7 +97,7 @@ export default function ShorPage() {
       <section className="mx-auto max-w-7xl px-6 pb-10 pt-12">
         <div className="max-w-4xl">
           <div className="mb-4 inline-flex rounded-full border border-purple-400/20 bg-purple-400/10 px-4 py-2 text-sm text-purple-300">
-            ⚛️ Quantum Algorithm Explorer
+            âš›ï¸ Quantum Algorithm Explorer
           </div>
 
           <h1 className="text-4xl font-bold md:text-5xl">
@@ -117,7 +117,7 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <h2 className="text-xl font-semibold">
-                🎯 The Problem
+                ðŸŽ¯ The Problem
               </h2>
 
               <p className="mt-4 leading-7 text-gray-400">
@@ -139,7 +139,7 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <h2 className="text-xl font-semibold">
-                ⚙️ Experiment
+                âš™ï¸ Experiment
               </h2>
 
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -182,7 +182,7 @@ export default function ShorPage() {
               >
                 {loading
                   ? "Running..."
-                  : "⚛️ Run Shor's Algorithm"}
+                  : "âš›ï¸ Run Shor's Algorithm"}
               </button>
 
               {error && (
@@ -194,7 +194,7 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <h2 className="text-xl font-semibold">
-                🌀 Quantum Fourier Transform
+                ðŸŒ€ Quantum Fourier Transform
               </h2>
 
               <p className="mt-4 leading-7 text-gray-400">
@@ -206,7 +206,7 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <h2 className="text-xl font-semibold">
-                🧠 Workflow
+                ðŸ§  Workflow
               </h2>
 
               <div className="mt-5 space-y-3">
@@ -240,12 +240,12 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <h2 className="text-xl font-semibold">
-                📊 Simulation Result
+                ðŸ“Š Simulation Result
               </h2>
 
               {!result && !loading && (
                 <div className="mt-6 rounded-xl border border-dashed border-white/10 p-10 text-center">
-                  <div className="text-4xl">⚛️</div>
+                  <div className="text-4xl">âš›ï¸</div>
                   <p className="mt-4 text-gray-400">
                     Run the simulation to see the result.
                   </p>
@@ -254,7 +254,7 @@ export default function ShorPage() {
 
               {loading && (
                 <div className="mt-6 rounded-xl border border-white/10 p-10 text-center">
-                  <div className="text-4xl">🌀</div>
+                  <div className="text-4xl">ðŸŒ€</div>
                   <p className="mt-4 text-gray-300">
                     Finding the period...
                   </p>
@@ -276,14 +276,14 @@ export default function ShorPage() {
                     <div className="rounded-xl border border-white/10 bg-black/20 p-4">
                       <p className="text-xs text-gray-500">Base</p>
                       <p className="mt-2 text-2xl font-bold">
-                        {result.base ?? "—"}
+                        {result.base ?? "â€”"}
                       </p>
                     </div>
 
                     <div className="rounded-xl border border-white/10 bg-black/20 p-4">
                       <p className="text-xs text-gray-500">Period</p>
                       <p className="mt-2 text-2xl font-bold">
-                        {result.period ?? "—"}
+                        {result.period ?? "â€”"}
                       </p>
                     </div>
 
@@ -296,7 +296,7 @@ export default function ShorPage() {
                       </p>
 
                       <p className="mt-3 text-3xl font-bold">
-                        {result.factors[0]} × {result.factors[1]} ={" "}
+                        {result.factors[0]} Ã— {result.factors[1]} ={" "}
                         {result.number}
                       </p>
                     </div>
@@ -315,7 +315,7 @@ export default function ShorPage() {
             {result && (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                 <h2 className="text-xl font-semibold">
-                  🔬 Step-by-Step
+                  ðŸ”¬ Step-by-Step
                 </h2>
 
                 <div className="mt-6 space-y-4">
@@ -348,7 +348,7 @@ export default function ShorPage() {
             {result && result.period && result.base && (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                 <h2 className="text-xl font-semibold">
-                  🔄 Period Finding
+                  ðŸ”„ Period Finding
                 </h2>
 
                 <div className="my-5 rounded-xl border border-purple-400/20 bg-purple-400/5 p-5 text-center">
@@ -399,7 +399,7 @@ export default function ShorPage() {
             {result && (
               <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                 <h2 className="text-xl font-semibold">
-                  🌀 QFT
+                  ðŸŒ€ QFT
                 </h2>
 
                 <p className="mt-4 text-sm leading-7 text-gray-400">
@@ -412,19 +412,19 @@ export default function ShorPage() {
                     Superposition
                   </span>
 
-                  <span className="text-purple-300">→</span>
+                  <span className="text-purple-300">â†’</span>
 
                   <span className="rounded-lg border border-white/10 px-4 py-3 text-sm">
                     Periodic Function
                   </span>
 
-                  <span className="text-purple-300">→</span>
+                  <span className="text-purple-300">â†’</span>
 
                   <span className="rounded-lg border border-purple-400/30 bg-purple-400/10 px-4 py-3 text-sm text-purple-200">
                     QFT
                   </span>
 
-                  <span className="text-purple-300">→</span>
+                  <span className="text-purple-300">â†’</span>
 
                   <span className="rounded-lg border border-white/10 px-4 py-3 text-sm">
                     Period
@@ -435,7 +435,7 @@ export default function ShorPage() {
 
             <div className="rounded-2xl border border-purple-400/20 bg-purple-400/5 p-6">
               <h2 className="text-xl font-semibold">
-                🧠 Need Help?
+                ðŸ§  Need Help?
               </h2>
 
               <p className="mt-3 text-sm text-gray-400">
@@ -447,7 +447,7 @@ export default function ShorPage() {
                 href="/tutor"
                 className="mt-5 inline-flex rounded-xl border border-purple-400/30 bg-purple-400/10 px-5 py-3 text-sm font-semibold text-purple-200"
               >
-                Ask AI Tutor →
+                Ask AI Tutor â†’
               </Link>
             </div>
 
@@ -457,5 +457,6 @@ export default function ShorPage() {
     </main>
   );
 }
+
 
 
