@@ -70,19 +70,19 @@ export default function Dashboard() {
     X: {
       name: "Pauli-X Gate",
       description:
-        "Flips the qubit state. A qubit in |0⟩ becomes |1⟩ and a qubit in |1⟩ becomes |0⟩.",
+        "Flips the qubit state. A qubit in |0âŸ© becomes |1âŸ© and a qubit in |1âŸ© becomes |0âŸ©.",
     },
 
     Z: {
       name: "Pauli-Z Gate",
       description:
-        "Changes the phase of the |1⟩ state while leaving the measurement probabilities unchanged.",
+        "Changes the phase of the |1âŸ© state while leaving the measurement probabilities unchanged.",
     },
 
     CNOT: {
       name: "Controlled-NOT Gate",
       description:
-        "Uses one qubit as a control to flip another qubit when the control qubit is in state |1⟩.",
+        "Uses one qubit as a control to flip another qubit when the control qubit is in state |1âŸ©.",
     },
   };
 
@@ -95,35 +95,35 @@ export default function Dashboard() {
     };
   } = {
     H: {
-      initial: "|0⟩",
+      initial: "|0âŸ©",
       operation: "H",
-      final: "(|0⟩ + |1⟩) / √2",
+      final: "(|0âŸ© + |1âŸ©) / âˆš2",
       explanation:
-        "The Hadamard gate transforms |0⟩ into a superposition of |0⟩ and |1⟩. When measured, both outcomes have approximately equal probability.",
+        "The Hadamard gate transforms |0âŸ© into a superposition of |0âŸ© and |1âŸ©. When measured, both outcomes have approximately equal probability.",
     },
 
     X: {
-      initial: "|0⟩",
+      initial: "|0âŸ©",
       operation: "X",
-      final: "|1⟩",
+      final: "|1âŸ©",
       explanation:
-        "The Pauli-X gate flips the qubit from |0⟩ to |1⟩. This is similar to a classical NOT operation.",
+        "The Pauli-X gate flips the qubit from |0âŸ© to |1âŸ©. This is similar to a classical NOT operation.",
     },
 
     Z: {
-      initial: "|0⟩",
+      initial: "|0âŸ©",
       operation: "Z",
-      final: "|0⟩",
+      final: "|0âŸ©",
       explanation:
-        "The Pauli-Z gate changes the phase of the |1⟩ component. Starting from |0⟩, the measurement result remains |0⟩.",
+        "The Pauli-Z gate changes the phase of the |1âŸ© component. Starting from |0âŸ©, the measurement result remains |0âŸ©.",
     },
 
     CNOT: {
-      initial: "|00⟩",
+      initial: "|00âŸ©",
       operation: "CNOT",
-      final: "|00⟩",
+      final: "|00âŸ©",
       explanation:
-        "CNOT uses the first qubit as a control. Since the control starts in |0⟩, the target qubit is not flipped.",
+        "CNOT uses the first qubit as a control. Since the control starts in |0âŸ©, the target qubit is not flipped.",
     },
   };
 
@@ -136,7 +136,7 @@ export default function Dashboard() {
       title: "Initial State",
       shortTitle: "Initialize",
       description:
-        "The quantum system begins in its initial state. For these basic circuits, the qubit starts in |0⟩.",
+        "The quantum system begins in its initial state. For these basic circuits, the qubit starts in |0âŸ©.",
       state: currentState.initial,
     },
 
@@ -180,7 +180,7 @@ export default function Dashboard() {
 
       try {
         const response = await fetch(
-          `https://quantumlearn-1.onrender.com/quantum/${selectedGate}`
+          `${process.env.NEXT_PUBLIC_API_URL}/quantum/${selectedGate}`
         );
 
         if (!response.ok) {
@@ -472,22 +472,22 @@ export default function Dashboard() {
         );
 
       if (selectedGate === "H") {
-        return `The Hadamard gate creates a superposition. The simulator measured the possible states across ${totalShots} shots. The most frequent result was |${dominantState}⟩ with approximately ${percentage}% of the measurements.`;
+        return `The Hadamard gate creates a superposition. The simulator measured the possible states across ${totalShots} shots. The most frequent result was |${dominantState}âŸ© with approximately ${percentage}% of the measurements.`;
       }
 
       if (selectedGate === "X") {
-        return `The X gate flips |0⟩ to |1⟩. The simulator produced |${dominantState}⟩ in ${percentage}% of the measurements.`;
+        return `The X gate flips |0âŸ© to |1âŸ©. The simulator produced |${dominantState}âŸ© in ${percentage}% of the measurements.`;
       }
 
       if (selectedGate === "Z") {
-        return `The Z gate changes quantum phase. Starting from |0⟩, that phase change does not alter the measurement probability, so the simulator primarily produces |${dominantState}⟩.`;
+        return `The Z gate changes quantum phase. Starting from |0âŸ©, that phase change does not alter the measurement probability, so the simulator primarily produces |${dominantState}âŸ©.`;
       }
 
       if (selectedGate === "CNOT") {
-        return `The CNOT gate uses the first qubit as a control. Since the circuit starts in |00⟩, the control qubit is 0 and the target is not flipped. The dominant measurement was |${dominantState}⟩ with approximately ${percentage}% of the shots.`;
+        return `The CNOT gate uses the first qubit as a control. Since the circuit starts in |00âŸ©, the control qubit is 0 and the target is not flipped. The dominant measurement was |${dominantState}âŸ© with approximately ${percentage}% of the shots.`;
       }
 
-      return `The simulator measured |${dominantState}⟩ most frequently, appearing in approximately ${percentage}% of the ${totalShots} shots.`;
+      return `The simulator measured |${dominantState}âŸ© most frequently, appearing in approximately ${percentage}% of the ${totalShots} shots.`;
     };
 
   return (
@@ -507,7 +507,7 @@ export default function Dashboard() {
               href="/learn"
               className="text-sm text-slate-400 transition hover:text-cyan-300"
             >
-              ← Learning Hub
+              â† Learning Hub
             </Link>
 
             <div className="text-xl font-bold tracking-tight">
@@ -521,7 +521,7 @@ export default function Dashboard() {
               href="/tutor"
               className="text-sm text-slate-400 transition hover:text-purple-300"
             >
-              AI Tutor →
+              AI Tutor â†’
             </Link>
 
           </div>
@@ -654,7 +654,7 @@ export default function Dashboard() {
                   Running Simulation...
                 </>
               ) : (
-                "Run Quantum Circuit →"
+                "Run Quantum Circuit â†’"
               )}
 
             </button>
@@ -697,7 +697,7 @@ export default function Dashboard() {
               <div className="flex items-start gap-3">
 
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
-                  ✦
+                  âœ¦
                 </div>
 
                 <div>
@@ -772,7 +772,7 @@ export default function Dashboard() {
             {/* Arrow */}
 
             <div className="hidden text-2xl text-cyan-400 md:block">
-              →
+              â†’
             </div>
 
 
@@ -802,7 +802,7 @@ export default function Dashboard() {
             {/* Arrow */}
 
             <div className="hidden text-2xl text-cyan-400 md:block">
-              →
+              â†’
             </div>
 
 
@@ -885,7 +885,7 @@ export default function Dashboard() {
                 }
                 className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-400/30 hover:text-cyan-300"
               >
-                ↻ Restart Steps
+                â†» Restart Steps
               </button>
 
             </div>
@@ -919,7 +919,7 @@ export default function Dashboard() {
                       >
                         {currentStep >
                         step.number
-                          ? "✓"
+                          ? "âœ“"
                           : step.number}
                       </div>
 
@@ -1026,7 +1026,7 @@ export default function Dashboard() {
               }
               className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-slate-300 transition hover:border-white/20 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              ← Previous
+              â† Previous
             </button>
 
 
@@ -1039,7 +1039,7 @@ export default function Dashboard() {
                 }
                 className="rounded-xl bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
               >
-                Next Step →
+                Next Step â†’
               </button>
 
             ) : (
@@ -1053,7 +1053,7 @@ export default function Dashboard() {
               >
                 {loading
                   ? "Running..."
-                  : "Run Simulation →"}
+                  : "Run Simulation â†’"}
               </button>
 
             )}
@@ -1241,7 +1241,7 @@ export default function Dashboard() {
                     >
 
                       <span className="font-mono text-cyan-300">
-                        |{state}⟩
+                        |{state}âŸ©
                       </span>
 
                       <span className="font-semibold">
@@ -1265,7 +1265,7 @@ export default function Dashboard() {
               <div className="flex items-start gap-3">
 
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
-                  ✦
+                  âœ¦
                 </div>
 
                 <div>
@@ -1357,7 +1357,7 @@ export default function Dashboard() {
                 href="/tutor"
                 className="inline-flex shrink-0 items-center justify-center rounded-xl bg-purple-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-purple-300"
               >
-                Ask AI Tutor →
+                Ask AI Tutor â†’
               </Link>
 
             </div>
@@ -1378,7 +1378,7 @@ export default function Dashboard() {
             Learn
           </span>
 
-          {" "}• Interactive Quantum Education
+          {" "}â€¢ Interactive Quantum Education
 
         </footer>
 

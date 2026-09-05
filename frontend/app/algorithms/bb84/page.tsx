@@ -141,7 +141,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
     try {
 
       const response = await fetch(
-        "https://quantumlearn-1.onrender.com/algorithms/bb84",
+        "${process.env.NEXT_PUBLIC_API_URL}/algorithms/bb84",
         {
           method: "POST",
 
@@ -257,14 +257,14 @@ const [quizCompleted, setQuizCompleted] = useState(false);
   ) {
 
     if (basis === "Z") {
-      return "＋";
+      return "ï¼‹";
     }
 
     if (basis === "X") {
-      return "×";
+      return "Ã—";
     }
 
-    return "—";
+    return "â€”";
   }
 
 
@@ -406,7 +406,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
               fontSize: "14px",
             }}
           >
-            ← Back to Algorithms
+            â† Back to Algorithms
           </Link>
 
 
@@ -418,7 +418,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
               color: "#f8fafc",
             }}
           >
-            🔐 BB84 Quantum Key Distribution
+            ðŸ” BB84 Quantum Key Distribution
           </h1>
 
 
@@ -614,7 +614,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
             >
               {loading
                 ? "Running..."
-                : "▶ Run BB84"}
+                : "â–¶ Run BB84"}
             </button>
 
           </div>
@@ -642,7 +642,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
               marginBottom: "8px",
             }}
           >
-            📡 BB84 Quantum Channel
+            ðŸ“¡ BB84 Quantum Channel
           </h2>
 
 
@@ -670,7 +670,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
           >
 
             <ProtocolNode
-              icon="👩"
+              icon="ðŸ‘©"
               title="Alice"
               description="Encode"
               active
@@ -701,7 +701,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     fontSize: "18px",
                   }}
                 >
-                  |ψ⟩
+                  |ÏˆâŸ©
                 </div>
 
 
@@ -713,7 +713,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     fontSize: "22px",
                   }}
                 >
-                  →
+                  â†’
                 </div>
 
 
@@ -725,7 +725,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     fontSize: "18px",
                   }}
                 >
-                  |ψ⟩
+                  |ÏˆâŸ©
                 </div>
 
               </div>
@@ -759,7 +759,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     fontSize: "13px",
                   }}
                 >
-                  🕵️ Eve
+                  ðŸ•µï¸ Eve
                   <br />
                   Intercept
                 </div>
@@ -770,7 +770,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
 
 
             <ProtocolNode
-              icon="👨"
+              icon="ðŸ‘¨"
               title="Bob"
               description="Measure"
               active
@@ -877,8 +877,8 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                 }}
               >
                 {result.secure
-                  ? "✅ Channel Passed Security Check"
-                  : "⚠️ Key Should Be Rejected"}
+                  ? "âœ… Channel Passed Security Check"
+                  : "âš ï¸ Key Should Be Rejected"}
               </h2>
 
 
@@ -904,7 +904,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     fontWeight: 600,
                   }}
                 >
-                  🕵️ Eve was detected by the QBER check.
+                  ðŸ•µï¸ Eve was detected by the QBER check.
                 </p>
 
               )}
@@ -993,7 +993,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginTop: 0,
                 }}
               >
-                📐 Quantum Bit Error Rate
+                ðŸ“ Quantum Bit Error Rate
               </h2>
 
 
@@ -1020,7 +1020,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginBottom: "18px",
                 }}
               >
-                QBER = Test Errors ÷ Test Bits
+                QBER = Test Errors Ã· Test Bits
               </div>
 
 
@@ -1102,7 +1102,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginTop: 0,
                 }}
               >
-                🧪 Public Security Test
+                ðŸ§ª Public Security Test
               </h2>
 
 
@@ -1192,7 +1192,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                     : "#f8fafc",
                 }}
               >
-                🔑 Final Secret Key
+                ðŸ”‘ Final Secret Key
               </h2>
 
 
@@ -1271,7 +1271,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
       color: "#f8fafc",
     }}
   >
-    🤖 Need Help Understanding BB84?
+    ðŸ¤– Need Help Understanding BB84?
   </h2>
 
   <p
@@ -1308,7 +1308,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
       fontWeight: 600,
     }}
   >
-    🤖 Ask AI Tutor
+    ðŸ¤– Ask AI Tutor
   </Link>
 </section>
             {/* ======================================
@@ -1331,7 +1331,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginTop: 0,
                 }}
               >
-                📊 Quantum Transmission Details
+                ðŸ“Š Quantum Transmission Details
               </h2>
 
 
@@ -1461,7 +1461,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                           {basisSymbol(
                             row.eve_basis
                           )}{" "}
-                          {row.eve_basis ?? "—"}
+                          {row.eve_basis ?? "â€”"}
                         </td>
 
 
@@ -1505,7 +1505,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                                 color: "#fbbf24",
                               }}
                             >
-                              🧪 Test
+                              ðŸ§ª Test
                             </span>
                           ) : row.kept ? (
                             <span
@@ -1513,7 +1513,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                                 color: "#4ade80",
                               }}
                             >
-                              🔑 Key
+                              ðŸ”‘ Key
                             </span>
                           ) : (
                             <span
@@ -1544,7 +1544,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                                 fontWeight: 600,
                               }}
                             >
-                              ❌ Error
+                              âŒ Error
                             </span>
 
                           ) : row.kept ? (
@@ -1554,7 +1554,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                                 color: "#4ade80",
                               }}
                             >
-                              ✓ Match
+                              âœ“ Match
                             </span>
 
                           ) : (
@@ -1564,7 +1564,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                                 color: "#64748b",
                               }}
                             >
-                              —
+                              â€”
                             </span>
 
                           )}
@@ -1602,7 +1602,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginTop: 0,
                 }}
               >
-                🧠 Step-by-Step BB84
+                ðŸ§  Step-by-Step BB84
               </h2>
 
 
@@ -1699,7 +1699,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   marginTop: 0,
                 }}
               >
-                🔄 BB84 Workflow
+                ðŸ”„ BB84 Workflow
               </h2>
 
 
@@ -1747,7 +1747,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   color: "#f8fafc",
                 }}
               >
-                🧩 BB84 Knowledge Challenge
+                ðŸ§© BB84 Knowledge Challenge
               </h2>
 
               <p
@@ -1821,13 +1821,13 @@ const [quizCompleted, setQuizCompleted] = useState(false);
                   >
                     {quizScore === 100 ? (
                       <>
-                        🎉 Correct! A high QBER can indicate disturbance or eavesdropping.
+                        ðŸŽ‰ Correct! A high QBER can indicate disturbance or eavesdropping.
                         <br />
                         <strong>+50 XP</strong>
                       </>
                     ) : (
                       <>
-                        ❌ Not quite. A high QBER indicates that the quantum channel may have been disturbed. Try again!
+                        âŒ Not quite. A high QBER indicates that the quantum channel may have been disturbed. Try again!
                       </>
                     )}
                   </div>
@@ -1856,28 +1856,28 @@ const [quizCompleted, setQuizCompleted] = useState(false);
           >
 
             <InfoCard
-              icon="👩"
+              icon="ðŸ‘©"
               title="Alice"
               text="Creates random bits and randomly selects Z or X bases to encode the quantum states."
             />
 
 
             <InfoCard
-              icon="⚛️"
+              icon="âš›ï¸"
               title="Quantum Channel"
               text="Carries the quantum states from Alice to Bob. Measuring a quantum state can disturb it."
             />
 
 
             <InfoCard
-              icon="🕵️"
+              icon="ðŸ•µï¸"
               title="Eve"
               text="An eavesdropper who may intercept and measure quantum states before sending them onward."
             />
 
 
             <InfoCard
-              icon="👨"
+              icon="ðŸ‘¨"
               title="Bob"
               text="Randomly chooses measurement bases and measures the incoming quantum states."
             />
@@ -1907,7 +1907,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
               textDecoration: "none",
             }}
           >
-            ← Quantum Fourier Transform
+            â† Quantum Fourier Transform
           </Link>
 
 
@@ -1918,7 +1918,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
               textDecoration: "none",
             }}
           >
-            Shor's Algorithm →
+            Shor's Algorithm â†’
           </Link>
 
         </div>

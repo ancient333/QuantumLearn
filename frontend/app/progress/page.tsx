@@ -29,7 +29,7 @@ type LearningProgress = {
 
 const algorithms = [
   {
-    name: "Deutsch–Jozsa",
+    name: "Deutschâ€“Jozsa",
     href: "/algorithms/deutsch-jozsa",
   },
   {
@@ -57,33 +57,33 @@ const algorithms = [
 const badges = [
   {
     name: "Quantum Explorer",
-    icon: "⚛️",
+    icon: "âš›ï¸",
     description: "Used the Quantum Lab.",
     unlocked: (p: LearningProgress) => !!p.labUsed,
   },
   {
     name: "Simulation Starter",
-    icon: "▶️",
+    icon: "â–¶ï¸",
     description: "Ran at least one simulation.",
     unlocked: (p: LearningProgress) =>
       (p.simulationsRun || 0) > 0,
   },
   {
     name: "Algorithm Explorer",
-    icon: "🧠",
+    icon: "ðŸ§ ",
     description: "Completed at least one algorithm.",
     unlocked: (p: LearningProgress) =>
       (p.completedAlgorithms || []).length > 0,
   },
   {
     name: "Quantum Scholar",
-    icon: "🎓",
+    icon: "ðŸŽ“",
     description: "Used the AI Tutor.",
     unlocked: (p: LearningProgress) => !!p.tutorUsed,
   },
   {
     name: "BB84 Defender",
-    icon: "🔐",
+    icon: "ðŸ”",
     description: "Completed the BB84 challenge.",
     unlocked: (p: LearningProgress) =>
       !!p.bb84QuizCompleted,
@@ -546,8 +546,8 @@ export default function ProgressDashboard() {
             >
 
               {nextAlgorithm
-                ? "Continue Learning →"
-                : "Take Quantum Quiz →"}
+                ? "Continue Learning â†’"
+                : "Take Quantum Quiz â†’"}
 
             </Link>
 
@@ -626,7 +626,7 @@ export default function ProgressDashboard() {
               <p className="mt-3 text-2xl font-bold">
 
                 {progress.bb84QuizCompleted
-                  ? "✓ Completed"
+                  ? "âœ“ Completed"
                   : "Not Completed"}
 
               </p>
@@ -666,7 +666,7 @@ export default function ProgressDashboard() {
               href="/learn"
               className="text-sm font-semibold text-cyan-400 transition hover:text-cyan-300"
             >
-              View Learning Hub →
+              View Learning Hub â†’
             </Link>
 
           </div>
@@ -694,7 +694,7 @@ export default function ProgressDashboard() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.05] text-2xl">
                       {isUnlocked
                         ? badge.icon
-                        : "🔒"}
+                        : "ðŸ”’"}
                     </div>
 
                     <div>
@@ -752,7 +752,7 @@ export default function ProgressDashboard() {
             >
 
               <div className="text-3xl">
-                ⚛️
+                âš›ï¸
               </div>
 
               <h3 className="mt-4 text-lg font-bold">
@@ -773,7 +773,7 @@ export default function ProgressDashboard() {
             >
 
               <div className="text-3xl">
-                🤖
+                ðŸ¤–
               </div>
 
               <h3 className="mt-4 text-lg font-bold">
@@ -794,7 +794,7 @@ export default function ProgressDashboard() {
             >
 
               <div className="text-3xl">
-                🧠
+                ðŸ§ 
               </div>
 
               <h3 className="mt-4 text-lg font-bold">

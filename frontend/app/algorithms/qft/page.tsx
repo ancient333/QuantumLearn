@@ -99,7 +99,7 @@ export default function QFTPage() {
     try {
 
       const response = await fetch(
-        "https://quantumlearn-1.onrender.com/algorithms/qft",
+        "${process.env.NEXT_PUBLIC_API_URL}/algorithms/qft",
         {
           method: "POST",
           headers: {
@@ -256,7 +256,7 @@ export default function QFTPage() {
             fontSize: "15px",
           }}
         >
-          ← Back to Algorithms
+          â† Back to Algorithms
         </Link>
 
 
@@ -298,7 +298,7 @@ export default function QFTPage() {
               fontSize: "15px",
             }}
           >
-            AI Tutor →
+            AI Tutor â†’
           </Link>
         </div>
 
@@ -395,7 +395,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            🧠 What is the Quantum Fourier Transform?
+            ðŸ§  What is the Quantum Fourier Transform?
           </h2>
 
 
@@ -509,7 +509,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            ⚛️ Conceptual Quantum Circuit
+            âš›ï¸ Conceptual Quantum Circuit
           </h2>
 
 
@@ -758,7 +758,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            🧪 Interactive QFT Simulator
+            ðŸ§ª Interactive QFT Simulator
           </h2>
 
 
@@ -870,7 +870,7 @@ export default function QFTPage() {
             >
               {loading
                 ? "Running..."
-                : "▶ Run QFT"}
+                : "â–¶ Run QFT"}
             </button>
 
           </div>
@@ -922,7 +922,7 @@ export default function QFTPage() {
                 fontSize: "25px",
               }}
             >
-              📊 Simulation Result
+              ðŸ“Š Simulation Result
             </h2>
 
 
@@ -1029,7 +1029,7 @@ export default function QFTPage() {
                 fontSize: "18px",
               }}
             >
-              Input → Output State
+              Input â†’ Output State
             </h3>
 
 
@@ -1123,7 +1123,7 @@ export default function QFTPage() {
                           |{index.toString(2).padStart(
                             result.qubits,
                             "0"
-                          )}⟩
+                          )}âŸ©
                         </td>
 
 
@@ -1253,7 +1253,7 @@ export default function QFTPage() {
                 fontSize: "20px",
               }}
             >
-              📚 Step-by-Step QFT
+              ðŸ“š Step-by-Step QFT
             </h3>
 
 
@@ -1353,7 +1353,7 @@ export default function QFTPage() {
                 fontSize: "20px",
               }}
             >
-              🔄 QFT Workflow
+              ðŸ”„ QFT Workflow
             </h3>
 
 
@@ -1453,7 +1453,7 @@ export default function QFTPage() {
                 fontWeight: 700,
               }}
             >
-              Ask AI Tutor →
+              Ask AI Tutor â†’
             </Link>
 
           </section>
@@ -1483,7 +1483,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            🚀 Why is QFT Important?
+            ðŸš€ Why is QFT Important?
           </h2>
 
 
@@ -1639,7 +1639,7 @@ export default function QFTPage() {
               fontWeight: 600,
             }}
           >
-            ← Algorithms
+            â† Algorithms
           </Link>
 
 
@@ -1659,7 +1659,7 @@ export default function QFTPage() {
               fontWeight: 600,
             }}
           >
-            Explore Shor's Algorithm →
+            Explore Shor's Algorithm â†’
           </Link>
 
         </div>
