@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -50,7 +50,7 @@ const steps: Step[] = [
   {
     title: "Initialize",
     description:
-      "Prepare the two qubits in the |00âŸ© state.",
+      "Prepare the two qubits in the |00⟩ state.",
   },
   {
     title: "Superposition",
@@ -389,7 +389,7 @@ export default function GroverPage() {
               hover:text-cyan-300
             "
           >
-            â† Back to Algorithms
+            ← Back to Algorithms
           </Link>
 
 
@@ -507,7 +507,7 @@ export default function GroverPage() {
                     }
                   `}
                 >
-                  |{state}âŸ©
+                  |{state}⟩
                 </button>
 
               )
@@ -659,7 +659,7 @@ export default function GroverPage() {
                 text-cyan-300
               "
             >
-              |00âŸ© + |01âŸ© + |10âŸ© + |11âŸ©
+              |00⟩ + |01⟩ + |10⟩ + |11⟩
             </div>
 
 
@@ -711,7 +711,7 @@ export default function GroverPage() {
               disabled:opacity-40
             "
           >
-            â† Previous
+            ← Previous
           </button>
 
 
@@ -738,7 +738,7 @@ export default function GroverPage() {
               disabled:opacity-40
             "
           >
-            Next â†’
+            Next →
           </button>
 
 
@@ -902,7 +902,7 @@ export default function GroverPage() {
                     mt-2
                   "
                 >
-                  Found |{result.found_state}âŸ©
+                  Found |{result.found_state}⟩
                 </h2>
 
 
@@ -931,7 +931,7 @@ export default function GroverPage() {
                   font-semibold
                 "
               >
-                Algorithm Completed âœ“
+                Algorithm Completed ✓
               </div>
 
             </div>
@@ -1037,7 +1037,7 @@ export default function GroverPage() {
                           text-cyan-300
                         "
                       >
-                        |{item.state}âŸ©
+                        |{item.state}⟩
                       </span>
 
 
@@ -1114,7 +1114,7 @@ export default function GroverPage() {
                 hover:bg-cyan-300
               "
             >
-              Ask AI Tutor â†’
+              Ask AI Tutor →
             </Link>
 
           </section>

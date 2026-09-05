@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -400,13 +400,13 @@ export default function QuantumLabPage() {
     operations: GateOperation[]
   ): ExplanationResult => {
     const gateDescriptions: Record<string, string> = {
-      H: "The Hadamard gate creates superposition, so a qubit can have amplitudes for both |0âŸ© and |1âŸ©.",
-      X: "The X gate is the quantum NOT gate. It swaps the |0âŸ© and |1âŸ© states.",
+      H: "The Hadamard gate creates superposition, so a qubit can have amplitudes for both |0⟩ and |1⟩.",
+      X: "The X gate is the quantum NOT gate. It swaps the |0⟩ and |1⟩ states.",
       Y: "The Y gate rotates the qubit around the Y axis of the Bloch sphere.",
-      Z: "The Z gate changes the phase of the |1âŸ© component without changing measurement probabilities by itself.",
-      S: "The S gate applies a 90-degree phase rotation to the |1âŸ© component.",
-      T: "The T gate applies a 45-degree phase rotation to the |1âŸ© component.",
-      CNOT: "The CNOT gate flips the target qubit only when the control qubit is |1âŸ©. When the control is in superposition, CNOT can create entanglement.",
+      Z: "The Z gate changes the phase of the |1⟩ component without changing measurement probabilities by itself.",
+      S: "The S gate applies a 90-degree phase rotation to the |1⟩ component.",
+      T: "The T gate applies a 45-degree phase rotation to the |1⟩ component.",
+      CNOT: "The CNOT gate flips the target qubit only when the control qubit is |1⟩. When the control is in superposition, CNOT can create entanglement.",
       SWAP: "The SWAP gate exchanges the quantum states of two qubits.",
       RX: "RX rotates a qubit around the X axis by the selected angle.",
       RY: "RY rotates a qubit around the Y axis by the selected angle.",
@@ -419,9 +419,9 @@ export default function QuantumLabPage() {
       let target = "";
 
       if (gate === "CNOT") {
-        target = ` (control q${operation.control ?? 0} â†’ target q${operation.target ?? 1})`;
+        target = ` (control q${operation.control ?? 0} → target q${operation.target ?? 1})`;
       } else if (gate === "SWAP") {
-        target = ` (q${operation.qubit1 ?? 0} â†” q${operation.qubit2 ?? 1})`;
+        target = ` (q${operation.qubit1 ?? 0} ↔ q${operation.qubit2 ?? 1})`;
       } else if (operation.qubit !== undefined) {
         target = ` on q${operation.qubit}`;
       }
@@ -660,7 +660,7 @@ export default function QuantumLabPage() {
             <div className="absolute h-14 w-px bg-purple-400/50" />
 
             <div className="relative z-10 text-xl font-bold text-purple-300">
-              Ã—
+              ×
             </div>
 
           </div>
@@ -724,7 +724,7 @@ export default function QuantumLabPage() {
               href="/learn"
               className="text-sm text-slate-400 transition hover:text-cyan-300"
             >
-              â† Learning Hub
+              ← Learning Hub
             </Link>
 
             <div className="text-xl font-bold tracking-tight">
@@ -1038,7 +1038,7 @@ export default function QuantumLabPage() {
 
                   {loading
                     ? "Running..."
-                    : "Run Circuit â†’"}
+                    : "Run Circuit →"}
 
                 </button>
 
@@ -1048,7 +1048,7 @@ export default function QuantumLabPage() {
             disabled={fixing || operations.length === 0}
             className="rounded-xl border border-orange-400/40 bg-orange-500/10 px-4 py-2 text-sm font-semibold text-orange-200 transition hover:bg-orange-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {fixing ? "ðŸ”§ Fixing..." : "ðŸ”§ Fix My Circuit"}
+            {fixing ? "🔧 Fixing..." : "🔧 Fix My Circuit"}
           </button>
 
           <button
@@ -1063,7 +1063,7 @@ export default function QuantumLabPage() {
 
                   {explaining
                     ? "Explaining..."
-                    : "ðŸ§  Explain My Circuit"}
+                    : "🧠 Explain My Circuit"}
 
                 </button>
 
@@ -1326,11 +1326,11 @@ export default function QuantumLabPage() {
                             <div className="mb-2 flex items-center justify-between text-sm">
 
                               <span className="font-mono text-cyan-300">
-                                |{state}âŸ©
+                                |{state}⟩
                               </span>
 
                               <span className="text-slate-400">
-                                {count} shots Â·{" "}
+                                {count} shots ·{" "}
                                 {probability.toFixed(
                                   1
                                 )}
@@ -1382,7 +1382,7 @@ export default function QuantumLabPage() {
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-bold text-orange-200">
-                ðŸ”§ AI Circuit Analysis
+                🔧 AI Circuit Analysis
               </h3>
               <p className="mt-1 text-sm text-slate-400">
                 The AI checked your circuit for problems and suggested improvements.
@@ -1426,7 +1426,7 @@ export default function QuantumLabPage() {
                 <div className="flex items-center gap-3">
 
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-purple-400/30 bg-purple-400/10 text-lg">
-                    ðŸ§ 
+                    🧠
                   </div>
 
                   <div>
@@ -1619,14 +1619,14 @@ export default function QuantumLabPage() {
             href="/dashboard"
             className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-slate-300 transition hover:bg-white/[0.06]"
           >
-            â† Basic Quantum Lab
+            ← Basic Quantum Lab
           </Link>
 
           <Link
             href="/tutor"
             className="rounded-xl border border-cyan-400/20 bg-cyan-400/5 px-5 py-3 text-sm text-cyan-300 transition hover:bg-cyan-400/10"
           >
-            Ask AI Tutor â†’
+            Ask AI Tutor →
           </Link>
 
         </div>

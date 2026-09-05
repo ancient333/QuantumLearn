@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,7 +19,7 @@ type LearningProgress = {
 
 const algorithms = [
   {
-    name: "Deutschâ€“Jozsa",
+    name: "Deutsch–Jozsa",
     description:
       "Determine whether a function is constant or balanced using quantum parallelism.",
     difficulty: "Beginner",
@@ -184,9 +184,9 @@ export default function LearningHub() {
     recommendation = {
       title: "Try Your First Algorithm",
       description:
-        "Use Deutschâ€“Jozsa to connect quantum gates with a complete quantum algorithm.",
+        "Use Deutsch–Jozsa to connect quantum gates with a complete quantum algorithm.",
       href: "/algorithms/deutsch-jozsa",
-      button: "Explore Deutschâ€“Jozsa",
+      button: "Explore Deutsch–Jozsa",
     };
   }
 
@@ -469,7 +469,7 @@ export default function LearningHub() {
 
               <p className="mt-3 text-2xl font-bold">
                 {progress.bb84QuizCompleted
-                  ? "âœ“ Completed"
+                  ? "✓ Completed"
                   : "Not Completed"}
               </p>
 
@@ -539,7 +539,7 @@ export default function LearningHub() {
 
                 <h3 className="mt-2 text-xl font-bold">
                   {progress.bb84QuizCompleted
-                    ? "Great work â€” you understand the core security concept."
+                    ? "Great work — you understand the core security concept."
                     : "Complete the BB84 Knowledge Challenge to measure your understanding."}
                 </h3>
               </div>
@@ -549,8 +549,8 @@ export default function LearningHub() {
                 className="inline-flex shrink-0 items-center justify-center rounded-xl bg-cyan-400 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
               >
                 {progress.bb84QuizCompleted
-                  ? "Review BB84 â†’"
-                  : "Take Challenge â†’"}
+                  ? "Review BB84 →"
+                  : "Take Challenge →"}
               </Link>
 
             </div>
@@ -576,37 +576,37 @@ export default function LearningHub() {
               {
                 title: "Quantum Explorer",
                 description: "Open the Quantum Lab and explore your first gate.",
-                icon: "âš›ï¸",
+                icon: "⚛️",
                 unlocked: progress.labUsed,
               },
               {
                 title: "Simulation Starter",
                 description: "Run your first quantum simulation.",
-                icon: "â–¶ï¸",
+                icon: "▶️",
                 unlocked: (progress.simulationsRun || 0) > 0,
               },
               {
                 title: "Algorithm Explorer",
                 description: "Complete your first quantum algorithm.",
-                icon: "ðŸ§ ",
+                icon: "🧠",
                 unlocked: completedCount > 0,
               },
               {
                 title: "Quantum Scholar",
                 description: "Use the AI Tutor to deepen your understanding.",
-                icon: "ðŸŽ“",
+                icon: "🎓",
                 unlocked: progress.tutorUsed,
               },
               {
                 title: "BB84 Defender",
                 description: "Complete the BB84 Knowledge Challenge.",
-                icon: "ðŸ”",
+                icon: "🔐",
                 unlocked: Boolean(progress.bb84QuizCompleted),
               },
               {
                 title: "Quantum Master",
                 description: "Complete every available quantum algorithm.",
-                icon: "ðŸ†",
+                icon: "🏆",
                 unlocked: completedCount === algorithmCount,
               },
             ];
@@ -718,7 +718,7 @@ export default function LearningHub() {
               <div className="flex items-center justify-between">
 
                 <span className="text-3xl">
-                  âš›
+                  ⚛
                 </span>
 
                 <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-400">
@@ -738,7 +738,7 @@ export default function LearningHub() {
               </p>
 
               <div className="mt-6 inline-flex rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-200 transition group-hover:border-cyan-400/30 group-hover:text-cyan-300">
-                Open Quantum Lab â†’
+                Open Quantum Lab →
               </div>
 
             </Link>
@@ -754,7 +754,7 @@ export default function LearningHub() {
               <div className="flex items-center justify-between">
 
                 <span className="text-3xl">
-                  ðŸ¤–
+                  🤖
                 </span>
 
                 <span className="rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs font-semibold text-purple-300">
@@ -774,7 +774,7 @@ export default function LearningHub() {
               </p>
 
               <div className="mt-6 inline-flex rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-slate-200 transition group-hover:border-purple-400/30 group-hover:text-purple-300">
-                Ask AI Tutor â†’
+                Ask AI Tutor →
               </div>
 
             </Link>
@@ -790,7 +790,7 @@ export default function LearningHub() {
               <div className="flex items-center justify-between">
 
                 <span className="text-3xl">
-                  ðŸ§ 
+                  🧠
                 </span>
 
                 <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-400">
@@ -810,7 +810,7 @@ export default function LearningHub() {
               </p>
 
               <div className="mt-6 inline-flex rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-400 transition group-hover:bg-cyan-400/20">
-                Start Quiz â†’
+                Start Quiz →
               </div>
 
             </Link>
@@ -845,7 +845,7 @@ export default function LearningHub() {
               href="/algorithms"
               className="text-sm font-semibold text-cyan-400 transition hover:text-cyan-300"
             >
-              View All Algorithms â†’
+              View All Algorithms →
             </Link>
 
           </div>
@@ -875,7 +875,7 @@ export default function LearningHub() {
 
                     {completed && (
                       <span className="text-xs font-semibold text-emerald-400">
-                        âœ“ Completed
+                        ✓ Completed
                       </span>
                     )}
 
@@ -891,8 +891,8 @@ export default function LearningHub() {
 
                   <div className="mt-6 text-sm font-semibold text-slate-300 transition group-hover:text-cyan-300">
                     {completed
-                      ? "Review Algorithm â†’"
-                      : "Start Learning â†’"}
+                      ? "Review Algorithm →"
+                      : "Start Learning →"}
                   </div>
 
                 </Link>
@@ -1024,7 +1024,7 @@ export default function LearningHub() {
             Learn
           </span>
 
-          {" "}â€¢ Interactive Quantum Education
+          {" "}• Interactive Quantum Education
 
         </footer>
 

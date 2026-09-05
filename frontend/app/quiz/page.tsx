@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -65,7 +65,7 @@ const questions: Question[] = [
       "A quantum unit of information that can exist in a superposition of states",
 
     explanation:
-      "A qubit is the basic unit of quantum information. Unlike a classical bit, a qubit can exist in a combination of |0âŸ© and |1âŸ© until it is measured.",
+      "A qubit is the basic unit of quantum information. Unlike a classical bit, a qubit can exist in a combination of |0⟩ and |1⟩ until it is measured.",
   },
 
 
@@ -87,7 +87,7 @@ const questions: Question[] = [
       "A superposition of quantum states",
 
     explanation:
-      "The Hadamard gate transforms basis states into superposition states. For example, H|0âŸ© = (|0âŸ© + |1âŸ©)/âˆš2.",
+      "The Hadamard gate transforms basis states into superposition states. For example, H|0⟩ = (|0⟩ + |1⟩)/√2.",
   },
 
 
@@ -96,29 +96,29 @@ const questions: Question[] = [
     topic: "Quantum Gates",
 
     question:
-      "What does the X gate do to the state |0âŸ©?",
+      "What does the X gate do to the state |0⟩?",
 
     options: [
-      "It keeps the qubit in |0âŸ©",
-      "It changes |0âŸ© to |1âŸ©",
+      "It keeps the qubit in |0⟩",
+      "It changes |0⟩ to |1⟩",
       "It creates entanglement",
       "It measures the qubit",
     ],
 
     answer:
-      "It changes |0âŸ© to |1âŸ©",
+      "It changes |0⟩ to |1⟩",
 
     explanation:
-      "The X gate is the quantum equivalent of a classical NOT operation. It swaps |0âŸ© and |1âŸ©.",
+      "The X gate is the quantum equivalent of a classical NOT operation. It swaps |0⟩ and |1⟩.",
   },
 
 
   {
     id: 4,
-    topic: "Deutschâ€“Jozsa",
+    topic: "Deutsch–Jozsa",
 
     question:
-      "What does the Deutschâ€“Jozsa algorithm determine?",
+      "What does the Deutsch–Jozsa algorithm determine?",
 
     options: [
       "Whether a function is constant or balanced",
@@ -131,7 +131,7 @@ const questions: Question[] = [
       "Whether a function is constant or balanced",
 
     explanation:
-      "Deutschâ€“Jozsa determines whether an oracle implements a constant function or a balanced function using quantum interference.",
+      "Deutsch–Jozsa determines whether an oracle implements a constant function or a balanced function using quantum interference.",
   },
 
 
@@ -382,11 +382,11 @@ export default function QuizPage() {
     /*
      * Quiz XP:
      *
-     * 100%  â†’ 100 XP
-     * 80%+  â†’ 80 XP
-     * 60%+  â†’ 60 XP
-     * 40%+  â†’ 40 XP
-     * below â†’ 20 XP
+     * 100%  → 100 XP
+     * 80%+  → 80 XP
+     * 60%+  → 60 XP
+     * 40%+  → 40 XP
+     * below → 20 XP
      */
 
     let earnedXP = 20;
@@ -714,10 +714,10 @@ export default function QuizPage() {
 
             <div className="text-6xl">
               {percentage >= 80
-                ? "ðŸ†"
+                ? "🏆"
                 : percentage >= 60
-                  ? "ðŸŽ¯"
-                  : "ðŸ“š"}
+                  ? "🎯"
+                  : "📚"}
             </div>
 
 
@@ -1194,7 +1194,7 @@ export default function QuizPage() {
                       isCorrect && (
 
                         <span className="ml-auto text-emerald-400">
-                          âœ“
+                          ✓
                         </span>
 
                       )}
@@ -1205,7 +1205,7 @@ export default function QuizPage() {
                       !isCorrect && (
 
                         <span className="ml-auto text-red-400">
-                          âœ•
+                          ✕
                         </span>
 
                       )}
@@ -1255,8 +1255,8 @@ export default function QuizPage() {
 
               {currentQuestion ===
               questions.length - 1
-                ? "Finish Quiz â†’"
-                : "Next Question â†’"}
+                ? "Finish Quiz →"
+                : "Next Question →"}
 
             </button>
 
@@ -1332,7 +1332,7 @@ export default function QuizPage() {
             Learn
           </span>
 
-          {" "}â€¢ Interactive Quantum Education
+          {" "}• Interactive Quantum Education
 
         </footer>
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -69,13 +69,13 @@ type LearningProgress = {
 const defaultQuantumContext: QuantumContext = {
   gate: "H",
   qubits: 1,
-  initial_state: "|0âŸ©",
-  final_state: "|+âŸ©",
-  operation: "H|0âŸ© = |+âŸ©",
+  initial_state: "|0⟩",
+  final_state: "|+⟩",
+  operation: "H|0⟩ = |+⟩",
   description:
-    "The Hadamard gate creates an equal superposition of |0âŸ© and |1âŸ©.",
+    "The Hadamard gate creates an equal superposition of |0⟩ and |1⟩.",
   explanation:
-    "The H gate transforms |0âŸ© into (|0âŸ© + |1âŸ©)/âˆš2.",
+    "The H gate transforms |0⟩ into (|0⟩ + |1⟩)/√2.",
 };
 
 
@@ -520,7 +520,7 @@ export default function TutorPage() {
                 </p>
 
                 <p className="font-medium">
-                  {quantumContext.gate || "â€”"}
+                  {quantumContext.gate || "—"}
                 </p>
 
               </div>
@@ -533,7 +533,7 @@ export default function TutorPage() {
                 </p>
 
                 <p>
-                  {quantumContext.initial_state || "â€”"}
+                  {quantumContext.initial_state || "—"}
                 </p>
 
               </div>
@@ -546,7 +546,7 @@ export default function TutorPage() {
                 </p>
 
                 <p>
-                  {quantumContext.final_state || "â€”"}
+                  {quantumContext.final_state || "—"}
                 </p>
 
               </div>
@@ -584,7 +584,7 @@ export default function TutorPage() {
                   </p>
 
                   <p>
-                    {algorithmContext.algorithm || "â€”"}
+                    {algorithmContext.algorithm || "—"}
                   </p>
 
                 </div>
@@ -597,7 +597,7 @@ export default function TutorPage() {
                   </p>
 
                   <p>
-                    {algorithmContext.oracle_type || "â€”"}
+                    {algorithmContext.oracle_type || "—"}
                   </p>
 
                 </div>
@@ -820,7 +820,7 @@ export default function TutorPage() {
             <div className="flex items-center gap-4">
 
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-2xl">
-                ðŸ¤–
+                🤖
               </div>
 
 
@@ -862,7 +862,7 @@ export default function TutorPage() {
               >
 
                 <div className="mb-5 text-5xl">
-                  âš›ï¸
+                  ⚛️
                 </div>
 
 
@@ -1032,7 +1032,7 @@ export default function TutorPage() {
 
 
             <p className="mt-2 text-center text-xs text-slate-600">
-              Press Enter to send â€¢ Shift + Enter for a new line
+              Press Enter to send • Shift + Enter for a new line
             </p>
 
           </div>
