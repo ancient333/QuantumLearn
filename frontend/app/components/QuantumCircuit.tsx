@@ -22,7 +22,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q0",
           position: { x: 50, y: 70 },
           data: {
-            label: "qâ‚€ â”€â”€â”€ â—",
+            label: "q₀ ─── ●",
           },
           style: {
             background: "#1e293b",
@@ -36,7 +36,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q1",
           position: { x: 50, y: 180 },
           data: {
-            label: "qâ‚ â”€â”€â”€ âŠ•",
+            label: "q₁ ─── ⊕",
           },
           style: {
             background: "#1e293b",
@@ -52,7 +52,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q0",
           position: { x: 50, y: 100 },
           data: {
-            label: `qâ‚€ â”€â”€â”€ ${gate} â”€â”€â”€`,
+            label: `q₀ ─── ${gate} ───`,
           },
           style: {
             background: "#1e293b",

@@ -4,12 +4,12 @@ import Link from "next/link";
 
 const algorithms = [
   {
-    name: "Deutschâ€“Jozsa",
+    name: "Deutsch–Jozsa",
     description:
       "Determine whether a function is constant or balanced using quantum parallelism.",
     difficulty: "Intermediate",
     href: "/algorithms/deutsch-jozsa",
-    icon: "ðŸ§ ",
+    icon: "🧠",
     available: true,
   },
   {
@@ -18,7 +18,7 @@ const algorithms = [
       "Learn how quantum search can find a target item faster than classical brute-force search.",
     difficulty: "Intermediate",
     href: "/algorithms/grover",
-    icon: "ðŸ”Ž",
+    icon: "🔎",
     available: true,
   },
   {
@@ -27,7 +27,7 @@ const algorithms = [
       "Understand how an unknown quantum state can be transferred using entanglement and classical communication.",
     difficulty: "Intermediate",
     href: "/algorithms/quantum-teleportation",
-    icon: "âš›ï¸",
+    icon: "⚛️",
     available: true,
   },
   {
@@ -36,7 +36,7 @@ const algorithms = [
       "Learn how quantum states can be transformed using phase relationships and the quantum Fourier transform.",
     difficulty: "Advanced",
     href: "/algorithms/qft",
-    icon: "ã€°ï¸",
+    icon: "〰️",
     available: true,
   },
   {
@@ -45,7 +45,7 @@ const algorithms = [
       "Explore how quantum computers can use period finding to factor large integers.",
     difficulty: "Advanced",
     href: "/algorithms/shor",
-    icon: "ðŸ”",
+    icon: "🔐",
     available: true,
   },
   {
@@ -54,7 +54,7 @@ const algorithms = [
       "Learn how quantum mechanics can create a shared secret key and detect eavesdropping.",
     difficulty: "Advanced",
     href: "/algorithms/bb84",
-    icon: "ðŸ”‘",
+    icon: "🔑",
     available: true,
   },
 ];
@@ -64,25 +64,25 @@ const topics = [
     title: "Quantum Gates",
     description:
       "Learn how fundamental gates manipulate qubits.",
-    icon: "âš™ï¸",
+    icon: "⚙️",
   },
   {
     title: "Superposition",
     description:
       "Understand how qubits can exist in combinations of states.",
-    icon: "ðŸŒŒ",
+    icon: "🌌",
   },
   {
     title: "Entanglement",
     description:
       "Explore correlations between quantum systems.",
-    icon: "ðŸ”—",
+    icon: "🔗",
   },
   {
     title: "Measurement",
     description:
       "Understand how quantum states become classical outcomes.",
-    icon: "ðŸ“Š",
+    icon: "📊",
   },
   {
     title: "Hadamard",
@@ -94,26 +94,26 @@ const topics = [
     title: "Phase Rotation",
     description:
       "Learn how controlled phase operations manipulate quantum states.",
-    icon: "Î¸",
+    icon: "θ",
   },
   {
     title: "Fourier Transform",
     description:
       "Understand the quantum Fourier transform and its role in quantum algorithms.",
-    icon: "ã€°ï¸",
+    icon: "〰️",
   },
   {
     title: "Quantum Cryptography",
     description:
       "Learn how quantum mechanics can be used to establish secure communication.",
-    icon: "ðŸ”",
+    icon: "🔐",
   },
 ];
 
 const learningPath = [
   {
     step: 1,
-    title: "Deutschâ€“Jozsa",
+    title: "Deutsch–Jozsa",
     description:
       "Start with quantum parallelism and oracle-based computation.",
     href: "/algorithms/deutsch-jozsa",
@@ -185,7 +185,7 @@ export default function AlgorithmsPage() {
               fontSize: "14px",
             }}
           >
-            â† Back to Home
+            ← Back to Home
           </Link>
 
           <h1
@@ -196,7 +196,7 @@ export default function AlgorithmsPage() {
               marginBottom: "12px",
             }}
           >
-            âš›ï¸ Quantum Algorithms
+            ⚛️ Quantum Algorithms
           </h1>
 
           <p
@@ -304,7 +304,7 @@ export default function AlgorithmsPage() {
                       fontWeight: 600,
                     }}
                   >
-                    Explore Algorithm â†’
+                    Explore Algorithm →
                   </div>
                 </div>
               </Link>
@@ -391,7 +391,7 @@ export default function AlgorithmsPage() {
               marginBottom: "18px",
             }}
           >
-            ðŸ—ºï¸ Recommended Learning Path
+            🗺️ Recommended Learning Path
           </h2>
 
           <div

@@ -256,7 +256,7 @@ export default function QFTPage() {
             fontSize: "15px",
           }}
         >
-          â† Back to Algorithms
+          ← Back to Algorithms
         </Link>
 
 
@@ -298,7 +298,7 @@ export default function QFTPage() {
               fontSize: "15px",
             }}
           >
-            AI Tutor â†’
+            AI Tutor →
           </Link>
         </div>
 
@@ -395,7 +395,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            ðŸ§  What is the Quantum Fourier Transform?
+            🧠 What is the Quantum Fourier Transform?
           </h2>
 
 
@@ -509,7 +509,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            âš›ï¸ Conceptual Quantum Circuit
+            ⚛️ Conceptual Quantum Circuit
           </h2>
 
 
@@ -758,7 +758,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            ðŸ§ª Interactive QFT Simulator
+            🧪 Interactive QFT Simulator
           </h2>
 
 
@@ -870,7 +870,7 @@ export default function QFTPage() {
             >
               {loading
                 ? "Running..."
-                : "â–¶ Run QFT"}
+                : "▶ Run QFT"}
             </button>
 
           </div>
@@ -922,7 +922,7 @@ export default function QFTPage() {
                 fontSize: "25px",
               }}
             >
-              ðŸ“Š Simulation Result
+              📊 Simulation Result
             </h2>
 
 
@@ -1029,7 +1029,7 @@ export default function QFTPage() {
                 fontSize: "18px",
               }}
             >
-              Input â†’ Output State
+              Input → Output State
             </h3>
 
 
@@ -1123,7 +1123,7 @@ export default function QFTPage() {
                           |{index.toString(2).padStart(
                             result.qubits,
                             "0"
-                          )}âŸ©
+                          )}⟩
                         </td>
 
 
@@ -1253,7 +1253,7 @@ export default function QFTPage() {
                 fontSize: "20px",
               }}
             >
-              ðŸ“š Step-by-Step QFT
+              📚 Step-by-Step QFT
             </h3>
 
 
@@ -1353,7 +1353,7 @@ export default function QFTPage() {
                 fontSize: "20px",
               }}
             >
-              ðŸ”„ QFT Workflow
+              🔄 QFT Workflow
             </h3>
 
 
@@ -1453,7 +1453,7 @@ export default function QFTPage() {
                 fontWeight: 700,
               }}
             >
-              Ask AI Tutor â†’
+              Ask AI Tutor →
             </Link>
 
           </section>
@@ -1483,7 +1483,7 @@ export default function QFTPage() {
               fontSize: "25px",
             }}
           >
-            ðŸš€ Why is QFT Important?
+            🚀 Why is QFT Important?
           </h2>
 
 
@@ -1639,7 +1639,7 @@ export default function QFTPage() {
               fontWeight: 600,
             }}
           >
-            â† Algorithms
+            ← Algorithms
           </Link>
 
 
@@ -1659,7 +1659,7 @@ export default function QFTPage() {
               fontWeight: 600,
             }}
           >
-            Explore Shor's Algorithm â†’
+            Explore Shor's Algorithm →
           </Link>
 
         </div>
