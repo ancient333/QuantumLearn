@@ -141,7 +141,7 @@ const [quizCompleted, setQuizCompleted] = useState(false);
     try {
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/algorithms/bb84",
+        "https://quantumlearn-1.onrender.com/algorithms/bb84",
         {
           method: "POST",
 
@@ -2243,4 +2243,5 @@ function InfoCard(
 
   );
 }
+
 

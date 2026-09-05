@@ -39,7 +39,7 @@ export default function ShorPage() {
 
     try {
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/algorithms/shor",
+        "https://quantumlearn-1.onrender.com/algorithms/shor",
         {
           method: "POST",
           headers: {
@@ -457,4 +457,5 @@ export default function ShorPage() {
     </main>
   );
 }
+
 

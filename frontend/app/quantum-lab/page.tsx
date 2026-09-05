@@ -283,7 +283,7 @@ export default function QuantumLabPage() {
 
     try {
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/circuit/fix",
+        "https://quantumlearn-1.onrender.com/circuit/fix",
         {
           method: "POST",
           headers: {
@@ -348,7 +348,7 @@ export default function QuantumLabPage() {
 
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/circuit/simulate",
+        "https://quantumlearn-1.onrender.com/circuit/simulate",
         {
           method: "POST",
 
@@ -485,7 +485,7 @@ export default function QuantumLabPage() {
 
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/circuit/explain",
+        "https://quantumlearn-1.onrender.com/circuit/explain",
         {
           method: "POST",
 
@@ -1636,4 +1636,5 @@ export default function QuantumLabPage() {
     </main>
   );
 }
+
 

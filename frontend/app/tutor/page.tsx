@@ -278,7 +278,7 @@ export default function TutorPage() {
       // --------------------------------------------
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/tutor/chat",
+        "https://quantumlearn-1.onrender.com/tutor/chat",
         {
           method: "POST",
 
@@ -1045,4 +1045,5 @@ export default function TutorPage() {
 
   );
 }
+
 

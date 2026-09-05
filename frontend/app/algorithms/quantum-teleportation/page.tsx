@@ -63,7 +63,7 @@ export default function QuantumTeleportationPage() {
     try {
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/algorithms/quantum-teleportation",
+        "https://quantumlearn-1.onrender.com/algorithms/quantum-teleportation",
         {
           method: "POST",
 
@@ -1148,4 +1148,5 @@ export default function QuantumTeleportationPage() {
     </main>
   );
 }
+
 

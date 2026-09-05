@@ -99,7 +99,7 @@ export default function QFTPage() {
     try {
 
       const response = await fetch(
-        "https://yeast-licensed-columbus-junction.trycloudflare.com/algorithms/qft",
+        "https://quantumlearn-1.onrender.com/algorithms/qft",
         {
           method: "POST",
           headers: {
@@ -1669,4 +1669,5 @@ export default function QFTPage() {
     </main>
   );
 }
+
 

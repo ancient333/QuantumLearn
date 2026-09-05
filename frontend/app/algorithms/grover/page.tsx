@@ -110,7 +110,7 @@ export default function GroverPage() {
 
       const response =
         await fetch(
-          "https://yeast-licensed-columbus-junction.trycloudflare.com/algorithms/grover",
+          "https://quantumlearn-1.onrender.com/algorithms/grover",
           {
             method: "POST",
 
@@ -1127,4 +1127,5 @@ export default function GroverPage() {
 
   );
 }
+
 

@@ -180,7 +180,7 @@ export default function Dashboard() {
 
       try {
         const response = await fetch(
-          `https://yeast-licensed-columbus-junction.trycloudflare.com/quantum/${selectedGate}`
+          `https://quantumlearn-1.onrender.com/quantum/${selectedGate}`
         );
 
         if (!response.ok) {
@@ -1387,4 +1387,5 @@ export default function Dashboard() {
     </main>
   );
 }
+
 
