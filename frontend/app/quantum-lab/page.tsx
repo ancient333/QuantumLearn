@@ -737,7 +737,7 @@ export default function QuantumLabPage() {
             </div>
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="text-sm text-slate-400 transition hover:text-cyan-300"
             >
               Quantum Lab
@@ -1616,7 +1616,7 @@ export default function QuantumLabPage() {
         <div className="mt-8 flex flex-wrap gap-4">
 
           <Link
-            href="/dashboard"
+            href="/quantum-lab"
             className="rounded-xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-slate-300 transition hover:bg-white/[0.06]"
           >
             ← Basic Quantum Lab
