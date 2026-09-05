@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   ReactFlow,
@@ -22,7 +22,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q0",
           position: { x: 50, y: 70 },
           data: {
-            label: "q₀ ─── ●",
+            label: "qâ‚€ â”€â”€â”€ â—",
           },
           style: {
             background: "#1e293b",
@@ -36,7 +36,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q1",
           position: { x: 50, y: 180 },
           data: {
-            label: "q₁ ─── ⊕",
+            label: "qâ‚ â”€â”€â”€ âŠ•",
           },
           style: {
             background: "#1e293b",
@@ -52,7 +52,7 @@ export default function QuantumCircuit({ gate }: QuantumCircuitProps) {
           id: "q0",
           position: { x: 50, y: 100 },
           data: {
-            label: `q₀ ─── ${gate} ───`,
+            label: `qâ‚€ â”€â”€â”€ ${gate} â”€â”€â”€`,
           },
           style: {
             background: "#1e293b",
@@ -84,4 +84,5 @@ const edges: Edge[] =
     </div>
   );
 }
+
 

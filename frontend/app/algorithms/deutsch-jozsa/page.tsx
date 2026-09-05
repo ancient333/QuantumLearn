@@ -154,7 +154,7 @@ export default function DeutschJozsaPage() {
 
         const response =
           await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/algorithms/deutsch-jozsa`,
+            `https://quantumlearn-1.onrender.com/algorithms/deutsch-jozsa`,
             {
               method: "POST",
 
@@ -1475,6 +1475,8 @@ export default function DeutschJozsaPage() {
 
   );
 }
+
+
 
 
 

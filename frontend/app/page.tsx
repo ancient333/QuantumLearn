@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -34,7 +34,7 @@ export default function Home() {
           transition={{ duration: 0.5 }}
           className="mx-auto mb-6 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-sm text-cyan-300"
         >
-          ✦ AI-Powered Quantum Learning
+          âœ¦ AI-Powered Quantum Learning
         </motion.div>
 
         {/* Heading */}
@@ -73,17 +73,18 @@ export default function Home() {
             href="/learn"
             className="rounded-xl bg-cyan-400 px-8 py-4 font-semibold text-slate-950 shadow-lg shadow-cyan-500/10 transition hover:scale-105 hover:bg-cyan-300"
           >
-            Start Learning →
+            Start Learning â†’
           </Link>
         </motion.div>
       </section>
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-white/10 px-6 py-8 text-center text-sm text-slate-500">
-        QuantumLearn • AI-Based Interactive Quantum Learning Platform
+        QuantumLearn â€¢ AI-Based Interactive Quantum Learning Platform
       </footer>
     </main>
   );
 }
+
 
 
