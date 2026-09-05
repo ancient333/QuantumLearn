@@ -459,7 +459,7 @@ export default function TutorPage() {
 
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="transition hover:text-white"
             >
               Quantum Lab

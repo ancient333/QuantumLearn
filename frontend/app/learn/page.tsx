@@ -260,7 +260,7 @@ export default function LearningHub() {
             </Link>
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="transition hover:text-white"
             >
               Quantum Lab
@@ -711,7 +711,7 @@ export default function LearningHub() {
             {/* Quantum Lab */}
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="group rounded-3xl border border-white/10 bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:bg-cyan-400/[0.04]"
             >
 
@@ -981,7 +981,7 @@ export default function LearningHub() {
             </span>
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-400/30 hover:text-cyan-300"
             >
               Quantum Lab

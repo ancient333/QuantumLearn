@@ -309,7 +309,7 @@ export default function QuantumTeleportationPage() {
             </Link>
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="transition hover:text-white"
             >
               Quantum Lab
@@ -1128,7 +1128,7 @@ export default function QuantumTeleportationPage() {
           </Link>
 
           <Link
-            href="/dashboard"
+            href="/quantum-lab"
             className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-6 py-4 text-center font-semibold text-cyan-400 transition hover:bg-cyan-400/20"
           >
             Open Quantum Lab →

@@ -690,7 +690,7 @@ export default function QuizPage() {
               </Link>
 
               <Link
-                href="/dashboard"
+                href="/quantum-lab"
                 className="hover:text-white"
               >
                 Quantum Lab
@@ -972,7 +972,7 @@ export default function QuizPage() {
 
 
             <Link
-              href="/dashboard"
+              href="/quantum-lab"
               className="transition hover:text-white"
             >
               Quantum Lab
@@ -1272,7 +1272,7 @@ export default function QuizPage() {
         <section className="mt-6 grid gap-4 sm:grid-cols-3">
 
           <Link
-            href="/dashboard"
+            href="/quantum-lab"
             className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-cyan-400/20"
           >
 
