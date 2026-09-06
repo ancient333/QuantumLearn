@@ -163,9 +163,9 @@ def grover(
     counts = result.get_counts()
 
     found_state = max(
-        counts,
-        key=counts.get
-    )
+    counts,
+    key=counts.get
+)[::-1]
 
     return {
         "algorithm": "Grover",
