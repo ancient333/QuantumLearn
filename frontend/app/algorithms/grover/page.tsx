@@ -333,24 +333,28 @@ export default function GroverPage() {
   // CHART DATA
   // ======================================================
 
-  const chartData =
-    result
-      ? Object.entries(
-          result.counts
-        ).map(
-          ([state, count]) => ({
-            state,
-            count,
-            probability:
+const chartData =
+  result
+    ? [
+        {
+          state: result.target,
+          count:
+            result.counts[
+              Object.keys(result.counts)[0]
+            ],
+          probability:
+            (
               (
-                count /
-                result.shots
-              ) *
-              100,
-          })
-        )
-      : [];
-
+                result.counts[
+                  Object.keys(result.counts)[0]
+                ] || 0
+              ) /
+              result.shots
+            ) *
+            100,
+        },
+      ]
+    : [];
 
   // ======================================================
   // RENDER
