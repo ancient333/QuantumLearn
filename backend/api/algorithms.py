@@ -33,14 +33,20 @@ router = APIRouter(
 # ==================================================
 
 class DeutschJozsaRequest(BaseModel):
-
-    function_type: str = "constant"
+    oracle_type: str = "constant"
 
     shots: int = Field(
         default=1000,
         ge=100,
         le=10000,
     )
+
+    @property
+    def function_type(self) -> str:
+        return self.oracle_type
+
+
+    
 
 
 class GroverRequest(BaseModel):
