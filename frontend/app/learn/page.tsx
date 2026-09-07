@@ -162,7 +162,7 @@ export default function LearningHub() {
     title: "Start with the Quantum Lab",
     description:
       "Explore your first quantum gate and see how a quantum state changes.",
-    href: "/dashboard",
+    href: "/quantum-lab",
     button: "Open Quantum Lab",
   };
 
