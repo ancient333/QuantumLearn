@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import LogoutButton from "@/app/components/LogoutButton";
+import {
+  loadProgress,
+  saveProgress,
+} from "@/lib/progress";
 type LearningProgress = {
   completedAlgorithms: string[];
   tutorUsed: boolean;
@@ -83,28 +87,19 @@ export default function LearningHub() {
     bb84QuizAttempts: 0,
   });
 
-  useEffect(() => {
-    const storedProgress =
-      localStorage.getItem("quantumLearningProgress");
+ useEffect(() => {
+  async function getStudentProgress() {
+    try {
+      const storedProgress = await loadProgress();
 
-    if (storedProgress) {
-      try {
-        setProgress({
-          completedAlgorithms: [],
-          tutorUsed: false,
-          labUsed: false,
-          gatesExplored: [],
-          simulationsRun: 0,
-          lastGate: "",
-          ...JSON.parse(storedProgress),
-        });
-      } catch {
-        console.error(
-          "Could not load learning progress."
-        );
-      }
+     setProgress(storedProgress);
+    } catch (error) {
+      console.error("Could not load learning progress:", error);
     }
-  }, []);
+  }
+
+  getStudentProgress();
+}, []);
 
   // BB84 was previously stored as "BB84".
   // Normalize that old value so existing progress is preserved.
@@ -281,6 +276,7 @@ export default function LearningHub() {
             </Link>
 
           </div>
+          <LogoutButton />
         </nav>
 
 
