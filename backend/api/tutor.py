@@ -1,5 +1,6 @@
 from typing import Any
 import os
+import re
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
@@ -81,6 +82,101 @@ def clean_response(text: str | None) -> str:
         cleaned_lines.append(line)
 
     return "\n".join(cleaned_lines).strip()
+
+
+# ==================================================
+# Topic scope restriction
+# ==================================================
+#
+# The AI Tutor may only answer questions about the
+# activities QuantumLearn can actually perform:
+# the Quantum Lab, the quantum algorithms, the
+# Quantum Quiz, and core quantum computing concepts.
+#
+# ponytail: keyword heuristic. It is intentionally
+# permissive toward quantum-sounding questions and
+# strict toward clearly off-topic ones. A question is
+# in scope when it references an active algorithm run or
+# contains a quantum/platform keyword. Upgrade path:
+# a small labeled training set + classifier if false
+# refusals become common.
+
+QUANTUM_KEYWORDS = (
+    "quantum", "qubit", "superposition", "entanglement",
+    "measurement", "hadamard", "pauli", "cnot", "swap",
+    "grover", "deutsch", "jozsa", "teleportation", "qft",
+    "shor", "bb84", "qber", "eavesdropper", "qiskit",
+    "bloch", "dirac", "bra", "ket", "amplitude",
+    "wavefunction", "interference", "oracle", "diffusion",
+    "factoring", "cryptography", "superdense",
+    "error correction", "quantum computing",
+    "quantum information", "quantum mechanics",
+    "quantum state", "quantum physics", "quantum key",
+    "quantum circuit", "quantum gate", "quantum lab",
+    "quantum learn", "quantum quiz", "quantum algorithm",
+    "quantum teleportation", "quantum fourier",
+    "quantum search", "amplitude amplification",
+    "bloch sphere", "state vector", "density matrix",
+    "unitary", "heisenberg", "uncertainty principle",
+    "bell", "chsh", "quantum supremacy", "quantum advantage",
+    "surface code", "stabilizer", "clifford", "depolarizing",
+    "amplitude damping", "bit flip", "phase flip", "qec",
+    "qram", "quantum computer", "quantum processor",
+    "trapped ion", "superconducting", "pennylane", "cirq",
+    "q sharp", "q#", "quop", "quregister", "quwire",
+)
+
+PLATFORM_ACTIVITY_KEYWORDS = (
+    "quantum lab", "learning hub", "ai tutor",
+    "algorithm explorer", "circuit builder", "quantum quiz",
+)
+
+CONTEXT_REF_KEYWORDS = (
+    "my progress", "my last", "my result", "my simulation",
+    "my algorithm", "my circuit", "my gate", "my experiment",
+    "what did i", "my latest", "my current", "this result",
+    "the result i got", "my measurement", "my output",
+    "algorithms", "completed", "my completed",
+)
+
+
+def _contains_word(text: str, word: str) -> bool:
+    """Match a keyword as a whole word, not as a substring."""
+    return re.search(r"\b" + re.escape(word) + r"\b", text) is not None
+
+
+def is_question_in_scope(request: TutorRequest) -> bool:
+    """Return True only for questions about QuantumLearn activities."""
+    if request.algorithm_context:
+        return True
+
+    question = request.question.lower()
+
+    if any(_contains_word(question, keyword) for keyword in CONTEXT_REF_KEYWORDS):
+        return True
+
+    if any(_contains_word(question, keyword) for keyword in PLATFORM_ACTIVITY_KEYWORDS):
+        return True
+
+    return any(_contains_word(question, keyword) for keyword in QUANTUM_KEYWORDS)
+
+
+def scope_refusal() -> dict:
+    return {
+        "answer": (
+            "I can only help with topics and activities on "
+            "QuantumLearn — the Quantum Lab, the quantum "
+            "algorithms (Deutsch–Jozsa, Grover's, Quantum "
+            "Teleportation, QFT, Shor's, BB84), the Quantum "
+            "Quiz, and core quantum computing concepts such "
+            "as qubits, gates, circuits, superposition, "
+            "entanglement, and measurement. Ask me about "
+            "one of those, or choose an activity to work on "
+            "first."
+        ),
+        "model": "QuantumLearn Scope Guard",
+        "provider": "restricted",
+    }
 
 
 def build_prompt(request: TutorRequest) -> str:
@@ -323,6 +419,10 @@ def generate_gemini_answer(request: TutorRequest) -> str:
 
 @router.post("/chat")
 def chat_with_tutor(request: TutorRequest):
+    # Scope guard: refuse anything outside QuantumLearn's activities.
+    if not is_question_in_scope(request):
+        return scope_refusal()
+
     # Explicit local mode is useful for demos and for completely offline use.
     if TUTOR_PROVIDER == "local":
         return {
