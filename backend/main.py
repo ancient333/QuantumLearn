@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from quantum_engine.basic_circuits import run_gate
@@ -6,6 +6,7 @@ from quantum_engine.basic_circuits import run_gate
 from api.tutor import router as tutor_router
 from api.algorithms import router as algorithms_router
 from api.circuit import router as circuit_router
+from api.qml import router as qml_router
 
 
 app = FastAPI(
@@ -25,12 +26,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3001",
-    "https://quantum-learn-coral.vercel.app",
-],
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+        "https://quantum-learn-coral.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -107,4 +109,13 @@ app.include_router(
 
 app.include_router(
     circuit_router
+)
+
+
+# ==================================================
+# Quantum Machine Learning
+# ==================================================
+
+app.include_router(
+    qml_router
 )

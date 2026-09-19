@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ProgressSync from "@/app/components/ProgressSync";
+//import ProgressSync from "@/app/components/ProgressSync";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
      <body className="min-h-full flex flex-col">
-  <ProgressSync />
+  {/* <ProgressSync /> */}
   {children}
 </body>
     </html>

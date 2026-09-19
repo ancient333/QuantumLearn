@@ -1,38 +1,26 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import {
+  isSupabaseConfigured,
+  warnSupabaseDisabled,
+} from "@/lib/supabase/dev-mode";
+import { createClient } from "@/lib/supabase/server";
+
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
+  const response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
+  // Local development bypass: without Supabase credentials there is no
+  // session to check, so never block navigation. All pages load normally.
+  if (!isSupabaseConfigured()) {
+    warnSupabaseDisabled();
+    return response;
+  }
 
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set(name, value);
-
-            response = NextResponse.next({
-              request: {
-                headers: request.headers,
-              },
-            });
-
-            response.cookies.set(name, value, options);
-          });
-        },
-      },
-    }
-  );
+  const supabase = await createClient();
 
   const {
     data: { user },

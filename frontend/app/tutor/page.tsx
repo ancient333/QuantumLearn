@@ -10,6 +10,8 @@ import rehypeKatex from "rehype-katex";
 
 import "katex/dist/katex.min.css";
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "https://quantumlearn-1.onrender.com";
 
 // --------------------------------------------------
 // Types
@@ -278,7 +280,7 @@ export default function TutorPage() {
       // --------------------------------------------
 
       const response = await fetch(
-        "https://quantumlearn-1.onrender.com/tutor/chat",
+        `${API_BASE}/tutor/chat`,
         {
           method: "POST",
 

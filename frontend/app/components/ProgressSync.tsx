@@ -1,12 +1,21 @@
 "use client";
 
 import { useEffect } from "react";
+
 import { createClient } from "@/lib/supabase/client";
+import { isSupabaseConfigured } from "@/lib/supabase/dev-mode";
 
 const STORAGE_KEY = "quantumLearningProgress";
 
 export default function ProgressSync() {
   useEffect(() => {
+    // Local development bypass: without Supabase credentials there is no
+    // cloud to sync with. Skip Supabase initialization entirely and let the
+    // app rely on localStorage only.
+    if (!isSupabaseConfigured()) {
+      return;
+    }
+
     const supabase = createClient();
 
     let userId: string | null = null;

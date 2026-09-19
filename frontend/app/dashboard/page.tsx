@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import QuantumCircuit from "../components/QuantumCircuit";
 
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "https://quantumlearn-1.onrender.com";
+
 import {
   BarChart,
   Bar,
@@ -180,7 +183,7 @@ export default function Dashboard() {
 
       try {
         const response = await fetch(
-          `https://quantumlearn-1.onrender.com/quantum/${selectedGate}`
+          `${API_BASE}/quantum/${selectedGate}`
         );
 
         if (!response.ok) {
