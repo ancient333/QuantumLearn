@@ -12,6 +12,22 @@ from qiskit.primitives import StatevectorSampler as Sampler
 
 algorithm_globals.random_seed = 42
 
+def _flat_circuit(circuit):
+    """Fully expand a blueprint/compound circuit into primitive gates.
+
+    QuantumCircuit.size() returns the qubit count, so gate metrics must be
+    derived from the decomposed circuit's count_ops() and depth().
+    """
+    flat = circuit.decompose()
+    while True:
+        nxt = flat.decompose()
+        if len(nxt.data) == len(flat.data):
+            return flat
+        flat = nxt
+
+def _gate_count(circuit):
+    return sum(count for name, count in circuit.count_ops().items() if name != "barrier")
+
 def generate_data(dataset_type="moons", n_samples=100):
     if dataset_type == "moons":
         X, y = make_moons(n_samples=n_samples, noise=0.1)
@@ -39,8 +55,10 @@ def run_vqc_experiment(dataset_type="moons", iterations=10):
 
     # Callback to capture training history
     history = []
+    parameter_history = []
     def callback(weights, loss):
         history.append(float(loss))
+        parameter_history.append([float(w) for w in np.asarray(weights).ravel()])
 
     sampler = Sampler()
     vqc = VQC(
@@ -56,16 +74,28 @@ def run_vqc_experiment(dataset_type="moons", iterations=10):
     score = vqc.score(X_test, y_test)
     predictions = vqc.predict(X_test)
 
-    # Circuit metrics
-    full_circuit = vqc.circuit
-    # Actually we need to transpile or just look at the components
-    gate_count = feature_map.size() + ansatz.size()
-    depth = feature_map.depth() + ansatz.depth()
+    # Circuit metrics computed from the actual executed circuit (primitive gates).
+    vqc_circuit = _flat_circuit(vqc.circuit)
+    gate_count = _gate_count(vqc_circuit)
+    depth = vqc_circuit.depth()
+
+    # Trained optimizer parameters (real values from the COBYLA result)
+    fit_result = getattr(vqc, "_fit_result", None)
+    final_parameters = (
+        [float(p) for p in np.asarray(fit_result.x).ravel()]
+        if fit_result is not None and fit_result.x is not None
+        else []
+    )
 
     return {
         "algorithm": "VQC",
         "accuracy": float(score),
         "loss_history": history,
+        "final_parameters": final_parameters,
+        "parameter_history": parameter_history,
+        "train_size": len(X_train),
+        "test_size": len(X_test),
+        "total_samples": len(X_train) + len(X_test),
         "qubit_count": num_qubits,
         "gate_count": gate_count,
         "circuit_depth": depth,
@@ -96,12 +126,22 @@ def run_qsvc_experiment(dataset_type="moons"):
     score = svc.score(matrix_test, y_test)
     predictions = svc.predict(matrix_test)
 
+    flat_feature_map = _flat_circuit(feature_map)
+
     return {
         "algorithm": "QSVC",
         "accuracy": float(score),
+        # Kernel method: no variational loss trace or trainable angles,
+        # but keys stay identical to VQC so clients never guess the schema.
+        "loss_history": [],
+        "final_parameters": [],
+        "parameter_history": [],
+        "train_size": len(X_train),
+        "test_size": len(X_test),
+        "total_samples": len(X_train) + len(X_test),
         "qubit_count": num_qubits,
-        "gate_count": feature_map.size(),
-        "circuit_depth": feature_map.depth(),
+        "gate_count": _gate_count(flat_feature_map),
+        "circuit_depth": flat_feature_map.depth(),
         "test_data": X_test.tolist(),
         "test_labels": y_test.tolist(),
         "predictions": predictions.tolist()

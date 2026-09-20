@@ -1,0 +1,29 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "Y", "qubit": 0}, {"gate": "Z", "qubit": 0}]}
+MODEL: QuantumLearn Circuit Analysis
+
+### Circuit Overview
+
+This circuit's job is moving basis states with NOT-like flips, and demonstrating that pure phase changes leave measurement probabilities untouched.
+
+This circuit runs on **2 qubits** with 2 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** applies Y to q0: it flips the state and adds a phase (Y|0⟩ = i|1⟩, Y|1⟩ = −i|0⟩). Think of it as an X gate that also rotates the phase by 90°.
+
+**Step 2** applies Pauli-Z to q0, which sits in the definite state |1⟩. Z leaves |0⟩ untouched and multiplies the |1⟩ amplitude by −1, so on a basis state this is pure phase: nothing a measurement could notice changes.
+
+### Key Quantum Concepts
+
+- **Phase** — phase and rotation gates change the relative phase between |0⟩ and |1⟩. Phase is invisible in a single qubit's raw 0/1 odds but decides how amplitudes combine.
+
+### Expected Measurement Results
+
+- q0 measures 1 on every run.
+- q1 is never touched by any gate, so it stays |0⟩ and measures 0 on every run.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+Pure phase lesson: none of these gates change what you measure, which is exactly the point — phase only reveals itself once amplitudes interfere.

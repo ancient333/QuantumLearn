@@ -1,0 +1,28 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "SWAP", "qubit1": 0, "qubit2": 1}, {"gate": "T", "qubit": 0}]}
+
+### Circuit Overview
+
+This circuit's job is demonstrating that pure phase changes leave measurement probabilities untouched, and wiring qubits together with controlled operations.
+
+This circuit runs on **2 qubits** with 2 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** swaps the states of q0 and q1, moving the quantum information each wire holds onto the other without measuring either one.
+
+**Step 2** applies the T gate to q0, rotating the phase of its |1⟩ component by 45°. Measurement probabilities do not change at all — only the internal phase moves, ready to interfere with anything that follows.
+
+### Key Quantum Concepts
+
+- **Phase** — phase and rotation gates change the relative phase between |0⟩ and |1⟩. Phase is invisible in a single qubit's raw 0/1 odds but decides how amplitudes combine.
+
+### Expected Measurement Results
+
+- q0 measures 0 on every run — the gates that touched it either cancel out or only change phase, and phase never moves a measurement probability.
+- q1 measures 0 on every run — the gates that touched it either cancel out or only change phase, and phase never moves a measurement probability.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+Pure phase lesson: none of these gates change what you measure, which is exactly the point — phase only reveals itself once amplitudes interfere.

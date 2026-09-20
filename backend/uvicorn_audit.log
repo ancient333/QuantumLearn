@@ -1,0 +1,49 @@
+INFO:     Started server process [4876]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58266 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53334 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53335 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53336 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53337 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53338 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53339 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53340 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53341 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53342 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53343 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53344 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53345 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53346 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53347 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53348 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53349 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53350 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53351 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53352 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53353 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56427 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56428 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56429 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56430 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56431 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56432 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64097 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64110 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64111 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64112 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64113 - "POST /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64114 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64115 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64116 - "GET /quantum/H HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64117 - "POST /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64118 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62182 - "OPTIONS /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62182 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57028 - "OPTIONS /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57028 - "POST /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55620 - "OPTIONS /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55620 - "POST /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53957 - "OPTIONS /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53957 - "POST /circuit/fix HTTP/1.1" 200 OK

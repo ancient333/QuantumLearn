@@ -2,9 +2,65 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 const API_BASE =
   process.env.NEXT_PUBLIC_API_URL || "https://quantumlearn-1.onrender.com";
+
+function TutorMarkdown({ text }: { text: string }) {
+  return (
+    <div className="rounded-xl bg-slate-950/60 p-5 text-sm leading-7 text-slate-300">
+      <ReactMarkdown
+        components={{
+          h1: ({ children }) => (
+            <h3 className="mb-2 mt-6 border-b border-white/10 pb-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-100 first:mt-0">
+              {children}
+            </h3>
+          ),
+          h2: ({ children }) => (
+            <h3 className="mb-2 mt-6 border-b border-white/10 pb-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-100 first:mt-0">
+              {children}
+            </h3>
+          ),
+          h3: ({ children }) => (
+            <h3 className="mb-2 mt-6 border-b border-white/10 pb-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-100 first:mt-0">
+              {children}
+            </h3>
+          ),
+          h4: ({ children }) => (
+            <h3 className="mb-2 mt-6 border-b border-white/10 pb-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-100 first:mt-0">
+              {children}
+            </h3>
+          ),
+          p: ({ children }) => (
+            <p className="my-3 leading-7 first:mt-0 last:mb-0">{children}</p>
+          ),
+          ul: ({ children }) => (
+            <ul className="my-3 list-disc space-y-2 pl-6 marker:text-slate-500">
+              {children}
+            </ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="my-3 list-decimal space-y-2 pl-6 marker:font-semibold marker:text-slate-400">
+              {children}
+            </ol>
+          ),
+          li: ({ children }) => (
+            <li className="leading-7 pl-1">{children}</li>
+          ),
+          strong: ({ children }) => (
+            <strong className="font-semibold text-white">{children}</strong>
+          ),
+          em: ({ children }) => (
+            <em className="italic text-slate-200">{children}</em>
+          ),
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    </div>
+  );
+}
 
 import {
   BarChart,
@@ -102,16 +158,21 @@ type QmlExperimentTab = "qml" | "hybrid" | "metrics" | "results";
 type QmlData = {
   algorithm: string;
   accuracy: number;
-  loss_history: number[];
+  loss_history?: number[];
+  final_parameters?: number[];
+  parameter_history?: number[][];
+  train_size?: number;
+  test_size?: number;
+  total_samples?: number;
   qubit_count: number;
   gate_count: number;
   circuit_depth: number;
   test_data: number[][];
-  test_labels: number[];
-  predictions: number[];
+  test_labels?: number[];
+  predictions?: number[];
 };
 
-// State placeholders – will be populated via API calls.
+// QML data starts null and is populated from the backend /qml/run response.
 const initialQmlData: QmlData | null = null;
 
 // ==================================================
@@ -131,11 +192,11 @@ function getHybridSteps(qmlData: QmlData | null): HybridStep[] {
     },
     {
       phase: "Data Encoding",
-      detail: `ZZFeatureMap encodes classical features into ${qmlData?.qubit_count ?? 2} qubits using non-linear entanglement.`,
+      detail: `ZZFeatureMap encodes classical features into ${qmlData?.qubit_count ?? "—"} qubits using non-linear entanglement.`,
     },
     {
       phase: "Quantum Circuit",
-      detail: `RealAmplitudes variational ansatz with parameterized rotation layers (${qmlData?.gate_count ?? 16} gates, circuit depth ${qmlData?.circuit_depth ?? 6}).`,
+      detail: `RealAmplitudes variational ansatz with parameterized rotation layers (${qmlData?.gate_count ?? "—"} gates, circuit depth ${qmlData?.circuit_depth ?? "—"}).`,
     },
     {
       phase: "Measurement",
@@ -143,11 +204,13 @@ function getHybridSteps(qmlData: QmlData | null): HybridStep[] {
     },
     {
       phase: "Classical Optimization",
-      detail: `COBYLA gradient-free optimizer executed over ${qmlData?.loss_history?.length ?? 20} iterations minimizing classification loss.`,
+      detail: `COBYLA gradient-free optimizer executed over ${qmlData?.loss_history?.length ?? "—"} iterations minimizing classification loss.`,
     },
     {
       phase: "Final Prediction",
-      detail: `Live model achieved ${(qmlData ? qmlData.accuracy * 100 : 85).toFixed(1)}% accuracy on unseen test samples.`,
+      detail: qmlData
+        ? `Live model achieved ${(qmlData.accuracy * 100).toFixed(1)}% accuracy on unseen test samples.`
+        : "Live model accuracy will appear here once the backend run completes.",
     },
   ];
 }
@@ -230,44 +293,48 @@ function HybridTrainingDemo({
   onRerun: () => void;
   isLoading: boolean;
 }) {
+  const lossHistory = qmlData?.loss_history ?? [];
+  const parameterHistory = qmlData?.parameter_history ?? [];
+  const finalParameters = qmlData?.final_parameters ?? [];
+
   const [isTraining, setIsTraining] = useState(false);
   const [epoch, setEpoch] = useState(0);
-  const [loss, setLoss] = useState(1.25);
-  const [accuracy, setAccuracy] = useState(0.50);
-  const [params, setParams] = useState<number[]>([1.24, -0.45, 0.82, 2.11, -1.05, 0.36]);
 
   const trainingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const totalEpochs = qmlData?.loss_history?.length || 20;
-  const initialLoss = qmlData?.loss_history?.[0] ? Number(qmlData.loss_history[0].toFixed(3)) : 1.25;
-  const displayLoss = epoch === 0 ? initialLoss : loss;
+  const totalEpochs = lossHistory.length;
+  const hasRunData = qmlData != null && totalEpochs > 0;
+  const finished = hasRunData && epoch >= totalEpochs;
+
+  const displayLoss = hasRunData
+    ? lossHistory[Math.min(epoch, totalEpochs - 1)].toFixed(3)
+    : null;
+
+  const displayAccuracy = !qmlData
+    ? null
+    : finished
+      ? `${(qmlData.accuracy * 100).toFixed(1)}%`
+      : "50.0%";
+
+  const activeParams = !hasRunData
+    ? null
+    : finished && finalParameters.length > 0
+      ? finalParameters
+      : (parameterHistory[Math.min(epoch, Math.max(parameterHistory.length - 1, 0))] ??
+        (finalParameters.length > 0 ? finalParameters : null));
 
   const startTraining = () => {
-    if (isTraining) return;
-
-    if (epoch >= totalEpochs) {
-      setEpoch(0);
-      setLoss(qmlData?.loss_history?.[0] ? Number(qmlData.loss_history[0].toFixed(3)) : 1.25);
-      setAccuracy(0.50);
-      setParams([1.24, -0.45, 0.82, 2.11, -1.05, 0.36]);
-    }
-
+    if (isTraining || !hasRunData) return;
+    if (epoch >= totalEpochs) setEpoch(0);
     setIsTraining(true);
   };
 
   const stopTraining = () => {
-    if (trainingIntervalRef.current) {
-      clearInterval(trainingIntervalRef.current);
-      trainingIntervalRef.current = null;
-    }
     setIsTraining(false);
   };
 
   const resetTraining = () => {
-    stopTraining();
+    setIsTraining(false);
     setEpoch(0);
-    setLoss(qmlData?.loss_history?.[0] ? Number(qmlData.loss_history[0].toFixed(3)) : 1.25);
-    setAccuracy(0.50);
-    setParams([1.24, -0.45, 0.82, 2.11, -1.05, 0.36]);
   };
 
   useEffect(() => {
@@ -282,32 +349,8 @@ function HybridTrainingDemo({
               trainingIntervalRef.current = null;
             }
             setIsTraining(false);
-            if (qmlData?.loss_history?.length) {
-              setLoss(Number(qmlData.loss_history[qmlData.loss_history.length - 1].toFixed(3)));
-            }
-            if (qmlData?.accuracy != null) {
-              setAccuracy(Number(qmlData.accuracy.toFixed(3)));
-            }
-            setParams([1.48, -0.62, 0.95, 2.38, -1.18, 0.52]);
             return totalEpochs;
           }
-
-          if (qmlData?.loss_history && qmlData.loss_history[nextEpoch - 1] !== undefined) {
-            setLoss(Number(qmlData.loss_history[nextEpoch - 1].toFixed(3)));
-          }
-
-          const targetAcc = qmlData?.accuracy ?? 0.85;
-          const currentAcc = 0.50 + (targetAcc - 0.50) * (nextEpoch / totalEpochs);
-          setAccuracy(Number(currentAcc.toFixed(3)));
-
-          setParams((prevParams) => {
-            const targets = [1.48, -0.62, 0.95, 2.38, -1.18, 0.52];
-            return prevParams.map((p, idx) => {
-              const diff = targets[idx] - p;
-              const step = diff * 0.15;
-              return Number((p + step).toFixed(2));
-            });
-          });
 
           return nextEpoch;
         });
@@ -324,7 +367,7 @@ function HybridTrainingDemo({
         clearInterval(trainingIntervalRef.current);
       }
     };
-  }, [isTraining, qmlData, totalEpochs]);
+  }, [isTraining, totalEpochs]);
 
   return (
     <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6 h-full flex flex-col justify-between">
@@ -334,23 +377,23 @@ function HybridTrainingDemo({
             <span>🧠</span> Active Training Simulator
           </h3>
           <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20 text-purple-300">
-            {qmlData ? "Aer Live VQC" : "Simulation"}
+            {qmlData ? `Aer Live ${qmlData.algorithm}` : "Awaiting Backend Data"}
           </span>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed mb-6">
-          Optimize variational parameters &theta; using live loss convergence from Qiskit Aer simulation. The classical COBYLA optimizer updates the rotation gates to minimize quantum measurement loss.
+          Replays the actual COBYLA iterations returned by the backend VQC run. Loss values and variational angles &theta; come directly from the optimizer history; accuracy shows the 50% random baseline until the loop converges, then the measured test accuracy.
         </p>
 
         <div className="space-y-4">
           <div>
             <div className="flex justify-between text-xs mb-1">
               <span className="text-slate-400 font-medium">Optimization Iteration</span>
-              <span className="font-semibold text-white">{epoch} / {totalEpochs}</span>
+              <span className="font-semibold text-white">{hasRunData ? `${epoch} / ${totalEpochs}` : "— / —"}</span>
             </div>
             <div className="h-2 rounded-full bg-white/5 overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-150"
-                style={{ width: `${(epoch / totalEpochs) * 100}%` }}
+                style={{ width: `${hasRunData ? (epoch / totalEpochs) * 100 : 0}%` }}
               />
             </div>
           </div>
@@ -359,39 +402,50 @@ function HybridTrainingDemo({
             <div className="rounded-lg bg-white/[0.02] border border-white/5 p-3">
               <span className="text-[10px] text-slate-500 uppercase block font-mono">Cost Loss</span>
               <span className="text-lg font-bold text-cyan-300 font-mono mt-1 block">
-                {displayLoss.toFixed(3)}
+                {displayLoss ?? "—"}
               </span>
             </div>
             <div className="rounded-lg bg-white/[0.02] border border-white/5 p-3">
               <span className="text-[10px] text-slate-500 uppercase block font-mono">Accuracy</span>
               <span className="text-lg font-bold text-purple-300 font-mono mt-1 block">
-                {(accuracy * 100).toFixed(1)}%
+                {displayAccuracy ?? "—"}
               </span>
+              {displayAccuracy !== null && !finished && (
+                <span className="text-[9px] text-slate-500 font-mono block mt-0.5">random baseline until converged</span>
+              )}
             </div>
           </div>
 
           <div>
-            <span className="text-[10px] text-slate-500 uppercase block font-mono mb-2">Trainable Parameters (&theta;)</span>
-            <div className="grid grid-cols-3 gap-2">
-              {params.map((p, idx) => (
-                <div key={idx} className="p-2 rounded bg-slate-950 border border-white/5 text-center">
-                  <span className="text-[9px] text-slate-500 block font-mono">&theta;{idx}</span>
-                  <span className="text-xs font-mono font-semibold text-slate-300">{p >= 0 ? `+${p.toFixed(2)}` : p.toFixed(2)}</span>
-                </div>
-              ))}
-            </div>
+            <span className="text-[10px] text-slate-500 uppercase block font-mono mb-2">
+              Trainable Parameters (&theta;) {finished && finalParameters.length > 0 ? "· optimized" : ""}
+            </span>
+            {activeParams && activeParams.length > 0 ? (
+              <div className="grid grid-cols-3 gap-2">
+                {activeParams.map((p, idx) => (
+                  <div key={idx} className="p-2 rounded bg-slate-950 border border-white/5 text-center">
+                    <span className="text-[9px] text-slate-500 block font-mono">&theta;{idx}</span>
+                    <span className="text-xs font-mono font-semibold text-slate-300">{p >= 0 ? `+${p.toFixed(2)}` : p.toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="rounded bg-slate-950 border border-white/5 p-3 text-center text-[10px] font-mono text-slate-500">
+                {isLoading ? "Loading trained parameters..." : "No Data Yet"}
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="mt-6 pt-4 border-t border-white/5 flex gap-2">
-        {!isTraining && epoch < totalEpochs ? (
+        {!isTraining && !finished ? (
           <button
             onClick={startTraining}
-            disabled={isLoading}
+            disabled={isLoading || !hasRunData}
             className="flex-1 rounded-lg bg-cyan-400 px-4 py-2.5 text-xs font-semibold text-slate-950 transition hover:bg-cyan-300 shadow-md shadow-cyan-400/10 disabled:opacity-50"
           >
-            Start Optimizer Loop
+            {hasRunData ? "Start Optimizer Loop" : isLoading ? "Loading..." : "No Data Yet"}
           </button>
         ) : isTraining ? (
           <button
@@ -1094,7 +1148,7 @@ export default function QuantumLabPage() {
 
 
   // ==================================================
-  // Quantum Machine Learning Lab (mock data only)
+  // Quantum Machine Learning Lab (live backend data)
   // ==================================================
 
   const qmlTabs: {
@@ -1811,9 +1865,7 @@ export default function QuantumLabPage() {
             </div>
           )}
 
-          <div className="whitespace-pre-wrap rounded-xl bg-slate-950/60 p-5 text-sm leading-7 text-slate-200">
-            {fixResult.explanation}
-          </div>
+          <TutorMarkdown text={fixResult.explanation} />
         </div>
       )}
 
@@ -1863,6 +1915,10 @@ export default function QuantumLabPage() {
 
               </button>
 
+            </div>
+
+            <div className="mt-4">
+              <TutorMarkdown text={explanation.explanation} />
             </div>
 
           </section>
@@ -1938,10 +1994,10 @@ export default function QuantumLabPage() {
 
                       <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6">
                         <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
-                          <span>📉</span> Training Loss History ({qmlData.loss_history.length} Iterations)
+                          <span>📉</span> Training Loss History ({qmlData.loss_history?.length ?? 0} Iterations)
                         </h3>
                         <ResponsiveContainer width="100%" height={250}>
-                          <LineChart data={qmlData.loss_history.map((v, i) => ({ epoch: i + 1, loss: Number(v.toFixed(4)) }))}>
+                          <LineChart data={(qmlData.loss_history ?? []).map((v, i) => ({ epoch: i + 1, loss: Number(v.toFixed(4)) }))}>
                             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                             <XAxis dataKey="epoch" stroke="#64748b" fontSize={11} tickLine={false} />
                             <YAxis stroke="#64748b" fontSize={11} domain={['auto', 'auto']} tickLine={false} />
@@ -1953,7 +2009,7 @@ export default function QuantumLabPage() {
 
                       <div className="rounded-xl border border-white/5 bg-white/[0.01] p-6">
                         <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
-                          <span>📋</span> Sample Predictions ({qmlData.predictions.length} Test Samples)
+                          <span>📋</span> Sample Predictions ({qmlData.predictions?.length ?? 0} Test Samples)
                         </h3>
                         <div className="overflow-x-auto">
                           <table className="w-full text-left text-sm">
@@ -1966,7 +2022,7 @@ export default function QuantumLabPage() {
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5 text-slate-300">
-                              {qmlData.predictions.map((pred, idx) => {
+                              {(qmlData.predictions ?? []).map((pred, idx) => {
                                 const trueLabel = qmlData.test_labels?.[idx] ?? pred;
                                 const isCorrect = trueLabel === pred;
                                 return (
@@ -2009,7 +2065,7 @@ export default function QuantumLabPage() {
                             </div>
                             <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
                               <span className="text-slate-500 block font-mono text-[10px] uppercase">Optimizer</span>
-                              <span className="font-semibold text-white">COBYLA ({qmlData.loss_history.length} iterations)</span>
+                              <span className="font-semibold text-white">COBYLA ({qmlData.loss_history?.length ?? 0} iterations)</span>
                             </div>
                           </div>
                         </div>
@@ -2059,7 +2115,11 @@ export default function QuantumLabPage() {
                         </div>
                         <div className="rounded-lg bg-white/[0.02] p-4 border border-white/5">
                           <p className="text-xs text-slate-500 uppercase font-mono">Total Samples</p>
-                          <p className="mt-1 text-sm font-semibold text-white">{qmlData ? qmlData.test_data.length + 80 : 100} samples (80 train / {qmlData ? qmlData.test_data.length : 20} test)</p>
+                          <p className="mt-1 text-sm font-semibold text-white">
+                            {qmlData
+                              ? `${qmlData.total_samples ?? "—"} samples (${qmlData.train_size ?? "—"} train / ${qmlData.test_size ?? "—"} test)`
+                              : "—"}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -2106,10 +2166,10 @@ export default function QuantumLabPage() {
                 )}
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                   <StatCard label="Accuracy Score" value={qmlData ? `${(qmlData.accuracy * 100).toFixed(1)}%` : "—"} accent="text-cyan-300" />
-                  <StatCard label="Final Loss" value={qmlData && qmlData.loss_history.length > 0 ? qmlData.loss_history[qmlData.loss_history.length - 1].toFixed(3) : "—"} accent="text-purple-300" />
-                  <StatCard label="Qubit Allocation" value={qmlData ? qmlData.qubit_count : 2} accent="text-pink-300" />
-                  <StatCard label="Quantum Gate Count" value={qmlData ? qmlData.gate_count : 16} accent="text-emerald-300" />
-                  <StatCard label="Circuit Depth" value={qmlData ? qmlData.circuit_depth : 6} accent="text-amber-300" />
+                  <StatCard label="Final Loss" value={qmlData && (qmlData.loss_history?.length ?? 0) > 0 ? qmlData.loss_history![qmlData.loss_history!.length - 1].toFixed(3) : "—"} accent="text-purple-300" />
+                  <StatCard label="Qubit Allocation" value={qmlData ? qmlData.qubit_count : "—"} accent="text-pink-300" />
+                  <StatCard label="Quantum Gate Count" value={qmlData ? qmlData.gate_count : "—"} accent="text-emerald-300" />
+                  <StatCard label="Circuit Depth" value={qmlData ? qmlData.circuit_depth : "—"} accent="text-amber-300" />
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-3">
@@ -2147,23 +2207,23 @@ export default function QuantumLabPage() {
                     <div className="grid gap-4 sm:grid-cols-3">
                       <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
                         <p className="text-xs text-slate-500 uppercase font-mono">Optimization Iterations</p>
-                        <p className="mt-2 text-2xl font-bold text-white">{qmlData ? qmlData.loss_history.length : 20}</p>
+                        <p className="mt-2 text-2xl font-bold text-white">{qmlData ? qmlData.loss_history?.length ?? 0 : "—"}</p>
                         <p className="mt-1 text-xs text-slate-400">COBYLA gradient-free optimizer</p>
                       </div>
                       <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
                         <p className="text-xs text-slate-500 uppercase font-mono">Training Set Size</p>
-                        <p className="mt-2 text-2xl font-bold text-white">80</p>
+                        <p className="mt-2 text-2xl font-bold text-white">{qmlData ? qmlData.train_size ?? "—" : "—"}</p>
                         <p className="mt-1 text-xs text-slate-400">Labeled instances ({qmlData?.algorithm || "VQC"})</p>
                       </div>
                       <div className="p-4 rounded-lg bg-white/[0.02] border border-white/5">
                         <p className="text-xs text-slate-500 uppercase font-mono">Validation / Test Set</p>
-                        <p className="mt-2 text-2xl font-bold text-white">{qmlData ? qmlData.test_data.length : 20}</p>
+                        <p className="mt-2 text-2xl font-bold text-white">{qmlData ? qmlData.test_size ?? qmlData.test_data?.length ?? "—" : "—"}</p>
                         <p className="mt-1 text-xs text-slate-400">Unseen test instances</p>
                       </div>
                     </div>
 
                     <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/10 text-xs text-purple-200 leading-relaxed">
-                      💡 <strong>Quantum Advantage Note:</strong> The quantum variational circuit uses a ZZFeatureMap and RealAmplitudes ansatz on {qmlData?.qubit_count ?? 2} qubits with {qmlData?.gate_count ?? 16} gates at depth {qmlData?.circuit_depth ?? 6}, executed on the Aer simulator to identify non-linear decision boundaries.
+                      💡 <strong>Quantum Advantage Note:</strong> The quantum variational circuit uses a ZZFeatureMap and RealAmplitudes ansatz on {qmlData?.qubit_count ?? "—"} qubits with {qmlData?.gate_count ?? "—"} gates at depth {qmlData?.circuit_depth ?? "—"}, executed on the Aer simulator to identify non-linear decision boundaries.
                     </div>
                   </div>
                 </div>
@@ -2212,7 +2272,7 @@ export default function QuantumLabPage() {
                           data={[
                             {
                               experiment: `${qmlData?.algorithm || "VQC"} (Live Aer Run)`,
-                              accuracy: qmlData ? Number(qmlData.accuracy.toFixed(2)) : 0.85,
+                              accuracy: qmlData ? Number(qmlData.accuracy.toFixed(2)) : 0,
                             },
                             {
                               experiment: "Random Chance Baseline",
@@ -2249,7 +2309,7 @@ export default function QuantumLabPage() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5 text-slate-300">
-                        {qmlData && qmlData.predictions.map((pred, idx) => {
+                        {qmlData && (qmlData.predictions ?? []).map((pred, idx) => {
                           const trueLabel = qmlData.test_labels?.[idx] ?? pred;
                           const isCorrect = trueLabel === pred;
                           return (
@@ -2270,7 +2330,7 @@ export default function QuantumLabPage() {
                             </tr>
                           );
                         })}
-                        {(!qmlData || qmlData.predictions.length === 0) && (
+                        {(!qmlData || (qmlData.predictions?.length ?? 0) === 0) && (
                           <tr>
                             <td colSpan={5} className="py-6 text-center text-slate-500">
                               {qmlLoading ? "Loading real test predictions from quantum engine..." : "No prediction data available. Run the QML experiment to view results."}

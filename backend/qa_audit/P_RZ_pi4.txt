@@ -1,0 +1,27 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "RZ", "qubit": 0, "angle": 0.7853981633974483}]}
+MODEL: QuantumLearn Circuit Analysis
+
+### Circuit Overview
+
+This circuit's job is tuning outcome probabilities with Bloch-sphere rotations, and shaping relative phase.
+
+This circuit runs on **2 qubits** with 1 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** rotates only the phase of q0 around the Z axis by 0.7853981633974483 radians. It changes no measurement probabilities on its own; it moves the relative phase between |0⟩ and |1⟩, which later interference steps can convert into a probability difference.
+
+### Key Quantum Concepts
+
+- **Phase** — phase and rotation gates change the relative phase between |0⟩ and |1⟩. Phase is invisible in a single qubit's raw 0/1 odds but decides how amplitudes combine.
+
+### Expected Measurement Results
+
+- q0 measures 0 on every run — the gates that touched it either cancel out or only change phase, and phase never moves a measurement probability.
+- q1 is never touched by any gate, so it stays |0⟩ and measures 0 on every run.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+This is a rotation demo: the gate angles directly set the 0/1 odds, so tweaking them is the fastest way to see probabilities move.

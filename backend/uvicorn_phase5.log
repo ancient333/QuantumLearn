@@ -1,0 +1,20 @@
+INFO:     Started server process [22880]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55485 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55486 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55488 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55489 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55974 - "OPTIONS /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55974 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60964 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61390 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61837 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64777 - "POST /qml/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "OPTIONS /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "POST /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "OPTIONS /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63878 - "OPTIONS /circuit/explain HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63878 - "POST /circuit/explain HTTP/1.1" 200 OK

@@ -1,0 +1,29 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "H", "qubit": 0}, {"gate": "CNOT", "control": 1, "target": 0}]}
+MODEL: QuantumLearn Circuit Analysis
+
+### Circuit Overview
+
+This circuit's job is creating superposition with Hadamard gates.
+
+This circuit runs on **2 qubits** with 2 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** applies the Hadamard to q0, which so far was the plain basis state |0⟩. H turns that definite state into the equal superposition (|0⟩ + |1⟩)/√2 — from this point on q0 has no definite value of its own until something measures it. This is the moment the circuit becomes genuinely quantum.
+
+**Step 2** is a CNOT controlled by q1, but q1 is definitely |0⟩ at this point, so the flip condition never fires and this step does nothing at all.
+
+### Key Quantum Concepts
+
+- **Superposition** — the Hadamard gates turn definite |0⟩ states into balanced combinations of |0⟩ and |1⟩, so those qubits carry both possibilities until something measures them.
+
+### Expected Measurement Results
+
+- q0 is in equal superposition: expect 0 about half the time and 1 about half the time.
+- q1 measures 0 on every run — the gates that touched it either cancel out or only change phase, and phase never moves a measurement probability.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+Superposition first, structure second: the Hadamard gates give the qubits genuinely indefinite values, and everything downstream acts on that quantum freedom.

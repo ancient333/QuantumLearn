@@ -1,0 +1,11 @@
+SWAP wrong shape                 /circuit/explain   -> 400 | Invalid 'SWAP' operation: the 'qubit1' field is required; the 'qubit2' field is required.
+CNOT missing target              /circuit/explain   -> 400 | Invalid 'CNOT' operation: the 'target' field is required.
+RZ missing angle                 /circuit/explain   -> 400 | Invalid 'RZ' operation: a numeric angle is required (use 0 for a zero rotation).
+RZ string angle                  /circuit/explain   -> 400 | Invalid request at body.operations.0.angle: Input should be a valid number, unable to parse string as a number
+H no qubit                       /circuit/fix       -> 400 | Invalid 'H' operation: the 'qubit' field is required.
+unknown gate CCX                 /circuit/explain   -> 400 | Invalid 'CCX' operation: unsupported gate. Supported gates: CNOT, H, MEASURE, MEASUREMENT, RX, RY, RZ, S, SWAP, T, X, Y, Z.
+qubit out of range explain       /circuit/explain   -> 400 | Step 1: qubit q5 is out of range for a 2-qubit circuit. Valid indices are 0 to 1.
+qubit out of range simulate      /circuit/simulate  -> 400 | Invalid qubit index: 5
+CNOT same qubits                 /circuit/fix       -> 400 | Invalid 'CNOT' operation: control and target must be different qubits.
+SWAP missing both                /circuit/code      -> 400 | Invalid 'SWAP' operation: the 'qubit1' field is required; the 'qubit2' field is required.
+negative index                   /circuit/explain   -> 400 | Invalid 'H' operation: 'qubit' must be a non-negative qubit index.

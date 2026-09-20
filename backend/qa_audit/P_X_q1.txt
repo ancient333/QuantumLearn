@@ -1,0 +1,23 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "X", "qubit": 1}]}
+MODEL: QuantumLearn Circuit Analysis
+
+### Circuit Overview
+
+This circuit's job is moving basis states with NOT-like flips.
+
+This circuit runs on **2 qubits** with 1 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** flips q1 from |0⟩ to |1⟩ with a Pauli-X gate. This behaves like a classical NOT: it moves between basis states without creating any new quantum behavior.
+
+### Expected Measurement Results
+
+- q0 is never touched by any gate, so it stays |0⟩ and measures 0 on every run.
+- q1 measures 1 on every run.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+Every gate here acts classically — definite flips and controlled wiring — so the measurement histogram should match one predictable bit string.

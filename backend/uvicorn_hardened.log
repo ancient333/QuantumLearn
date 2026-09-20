@@ -1,0 +1,20 @@
+INFO:     Started server process [1856]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58679 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58685 - "POST /circuit/explain HTTP/1.1" 200 OK
+Circuit tutor Gemini unavailable, using local fallback: Error code: 429 - {'error': {'message': 'Rate limit exceeded for model gemini-3.6-flash (limit: 20 requests per day on Free Tier). Please retry in 59s or upgrade your tier at https://ai.dev/rate-limit.', 'code': 'too_many_requests'}}
+INFO:     127.0.0.1:58654 - "POST /circuit/fix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50705 - "POST /circuit/simulate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50706 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50707 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50708 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50709 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50710 - "POST /circuit/fix HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50711 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50712 - "POST /circuit/explain HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50713 - "POST /circuit/simulate HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50714 - "POST /circuit/fix HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50715 - "POST /circuit/code HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:50716 - "POST /circuit/explain HTTP/1.1" 400 Bad Request

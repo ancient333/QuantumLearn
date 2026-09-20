@@ -1,0 +1,34 @@
+REQUEST: {"qubits": 2, "operations": [{"gate": "H", "qubit": 0}, {"gate": "RZ", "qubit": 0, "angle": 1.5707963267948966}, {"gate": "SWAP", "qubit1": 0, "qubit2": 1}, {"gate": "T", "qubit": 1}]}
+
+### Circuit Overview
+
+This circuit's job is creating superposition with Hadamard gates, tuning outcome probabilities with Bloch-sphere rotations, and shaping relative phase.
+
+This circuit runs on **2 qubits** with 4 operation(s). All qubits start at |0⟩, the quantum default with no interesting behavior yet.
+
+### How the Circuit Evolves
+
+**Step 1** applies the Hadamard to q0, which so far was the plain basis state |0⟩. H turns that definite state into the equal superposition (|0⟩ + |1⟩)/√2 — from this point on q0 has no definite value of its own until something measures it. This is the moment the circuit becomes genuinely quantum.
+
+**Step 2** rotates only the phase of q0 around the Z axis by 1.5707963267948966 radians. It changes no measurement probabilities on its own; it moves the relative phase between |0⟩ and |1⟩, which later interference steps can convert into a probability difference.
+
+**Step 3** swaps the states of q0 and q1, moving the quantum information each wire holds onto the other without measuring either one.
+
+**Step 4** applies the T gate to q1, rotating the phase of its |1⟩ component by 45°. Measurement probabilities do not change at all — only the internal phase moves, ready to interfere with anything that follows.
+
+### Key Quantum Concepts
+
+- **Superposition** — the Hadamard gates turn definite |0⟩ states into balanced combinations of |0⟩ and |1⟩, so those qubits carry both possibilities until something measures them.
+- **Phase** — phase and rotation gates change the relative phase between |0⟩ and |1⟩. Phase is invisible in a single qubit's raw 0/1 odds but decides how amplitudes combine.
+- **Interference** — when a qubit is rotated or passed through a second Hadamard, its probability amplitudes add or cancel, reshaping the final 0/1 statistics.
+
+### Expected Measurement Results
+
+- q0 measures 0 on every run — the gates that touched it either cancel out or only change phase, and phase never moves a measurement probability.
+- q1 is in equal superposition: expect 0 about half the time and 1 about half the time.
+
+Run enough shots and the histogram should match these predictions.
+
+### Takeaway
+
+Superposition first, structure second: the Hadamard gates give the qubits genuinely indefinite values, and everything downstream acts on that quantum freedom.

@@ -1,9 +1,66 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
+
+import math
 
 from quantum_engine.circuit_simulator import simulate_circuit
 
-from ai.tutor import generate_tutor_response
+from api.tutor import (
+    MODEL_NAME,
+    TUTOR_PROVIDER,
+    TutorRequest,
+    generate_gemini_answer,
+    local_tutor_answer,
+)
+
+
+LOCAL_TUTOR_MODEL = "QuantumLearn Circuit Analysis"
+
+
+def tutor_pipeline_answer(
+    question: str,
+    circuit_context: dict | None = None,
+) -> dict:
+    """
+    Route a prompt through the same Gemini pipeline used by
+    /tutor/chat. Gemini errors never leak into the answer:
+    on failure we return the AI Tutor's local fallback.
+
+    circuit_context marks the request as a circuit analysis
+    so the offline fallback uses the circuit-aware path.
+    """
+
+    request = TutorRequest(
+        question=question,
+        circuit_context=circuit_context,
+    )
+
+    if TUTOR_PROVIDER == "local":
+        return {
+            "answer": local_tutor_answer(request),
+            "model": LOCAL_TUTOR_MODEL,
+            "provider": "local",
+        }
+
+    try:
+        return {
+            "answer": generate_gemini_answer(request),
+            "model": MODEL_NAME,
+            "provider": "gemini",
+        }
+
+    except Exception as error:
+
+        print(
+            "Circuit tutor Gemini unavailable, "
+            f"using local fallback: {error}"
+        )
+
+        return {
+            "answer": local_tutor_answer(request),
+            "model": LOCAL_TUTOR_MODEL,
+            "provider": "local-fallback",
+        }
 
 
 router = APIRouter(
@@ -16,7 +73,19 @@ router = APIRouter(
 # Request Models
 # ==================================================
 
+SINGLE_QUBIT_GATES = {"H", "X", "Y", "Z", "S", "T"}
+ROTATION_GATES = {"RX", "RY", "RZ"}
+MEASUREMENT_GATES = {"MEASURE", "MEASUREMENT"}
+SUPPORTED_GATES = SINGLE_QUBIT_GATES | ROTATION_GATES | MEASUREMENT_GATES | {"CNOT", "SWAP"}
+
+
 class CircuitOperation(BaseModel):
+    """One gate in a circuit-analysis request.
+
+    Every gate must arrive with the qubit fields its type requires, so
+    downstream analysis can never see a missing (None) qubit index.
+    """
+
     gate: str
 
     qubit: int | None = None
@@ -28,6 +97,108 @@ class CircuitOperation(BaseModel):
     qubit2: int | None = None
 
     angle: float | None = None
+
+    @model_validator(mode="after")
+    def validate_gate_payload(self):
+        try:
+            self._validate_fields()
+        except ValueError as error:
+            raise ValueError(f"Invalid '{self.gate}' operation: {error}") from error
+
+        return self
+
+    def _validate_fields(self):
+        self.gate = str(self.gate).strip().upper()
+
+        if not self.gate:
+            raise ValueError("gate name is missing.")
+
+        if self.gate not in SUPPORTED_GATES:
+            raise ValueError(
+                "unsupported gate. Supported gates: "
+                f"{', '.join(sorted(SUPPORTED_GATES))}."
+            )
+
+        problems: list[str] = []
+
+        if self.gate in SINGLE_QUBIT_GATES | MEASUREMENT_GATES:
+            self._check_int("qubit", problems)
+
+        elif self.gate in ROTATION_GATES:
+            self._check_int("qubit", problems)
+
+            if self.angle is None or isinstance(self.angle, bool):
+                problems.append(
+                    "a numeric angle is required "
+                    "(use 0 for a zero rotation)"
+                )
+            elif not math.isfinite(self.angle):
+                problems.append("angle must be a finite number")
+
+        elif self.gate == "CNOT":
+            control = self._check_int("control", problems)
+            target = self._check_int("target", problems)
+
+            if (
+                control is not None
+                and target is not None
+                and control == target
+            ):
+                problems.append(
+                    "control and target must be different qubits"
+                )
+
+        elif self.gate == "SWAP":
+            qubit1 = self._check_int("qubit1", problems)
+            qubit2 = self._check_int("qubit2", problems)
+
+            if (
+                qubit1 is not None
+                and qubit2 is not None
+                and qubit1 == qubit2
+            ):
+                problems.append(
+                    "qubit1 and qubit2 must be different qubits"
+                )
+
+        if problems:
+            raise ValueError("; ".join(problems) + ".")
+
+    def _check_int(self, field, problems):
+        value = getattr(self, field)
+
+        if value is None or isinstance(value, bool):
+            problems.append(f"the '{field}' field is required")
+            return None
+
+        if value < 0:
+            problems.append(
+                f"'{field}' must be a non-negative qubit index"
+            )
+
+        return value
+
+
+def validate_operation_qubit_indices(operations, qubits):
+    """Reject qubit indices beyond the declared register size.
+
+    Called by the analysis routes before the analyzer runs; the
+    simulator and code generator already enforce this themselves.
+    """
+
+    for index, operation in enumerate(operations, start=1):
+        for field in ("qubit", "control", "target", "qubit1", "qubit2"):
+            value = operation.get(field)
+
+            if value is not None and value >= qubits:
+                raise HTTPException(
+                    status_code=400,
+                    detail=(
+                        f"Step {index}: {field} q{value} is out of range "
+                        f"for a {qubits}-qubit circuit. "
+                        f"Valid indices are 0 to {qubits - 1}."
+                    ),
+                )
 
 
 class CircuitSimulationRequest(BaseModel):
@@ -161,6 +332,11 @@ def explain_quantum_circuit(
             for operation in request.operations
         ]
 
+        validate_operation_qubit_indices(
+            operations,
+            request.qubits,
+        )
+
         circuit_description = []
 
         for index, operation in enumerate(
@@ -280,32 +456,22 @@ Explain what a student should expect when
 the circuit is measured.
 """
 
-        explanation = generate_tutor_response(
-
+        tutor_result = tutor_pipeline_answer(
             question=prompt,
-
-            history=[],
-
-            quantum_context={
-                "gate": None,
+            circuit_context={
+                "mode": "explain",
                 "qubits": request.qubits,
-                "initial_state": "|0⟩",
-                "description": circuit_text,
-                "final_state": None,
-                "operation": None,
-                "explanation": None,
+                "operations": operations,
             },
-
-            algorithm_context=None,
-
-            learning_progress=None,
         )
 
         return {
             "success": True,
             "qubits": request.qubits,
             "operations": operations,
-            "explanation": explanation,
+            "explanation": tutor_result["answer"],
+            "model": tutor_result["model"],
+            "provider": tutor_result["provider"],
         }
 
     except HTTPException:
@@ -349,6 +515,11 @@ def fix_quantum_circuit(
             )
             for operation in request.operations
         ]
+
+        validate_operation_qubit_indices(
+            operations,
+            request.qubits,
+        )
 
         simulation_error = None
 
@@ -500,25 +671,14 @@ the provided circuit actually contains evidence
 of that problem.
 """
 
-        explanation = generate_tutor_response(
-
+        tutor_result = tutor_pipeline_answer(
             question=prompt,
-
-            history=[],
-
-            quantum_context={
-                "gate": None,
+            circuit_context={
+                "mode": "fix",
                 "qubits": request.qubits,
-                "initial_state": "|0⟩",
-                "description": circuit_text,
-                "final_state": None,
-                "operation": None,
-                "explanation": simulation_error,
+                "operations": operations,
+                "simulation_error": simulation_error,
             },
-
-            algorithm_context=None,
-
-            learning_progress=None,
         )
 
         return {
@@ -526,7 +686,9 @@ of that problem.
             "qubits": request.qubits,
             "operations": operations,
             "simulation_error": simulation_error,
-            "explanation": explanation,
+            "explanation": tutor_result["answer"],
+            "model": tutor_result["model"],
+            "provider": tutor_result["provider"],
         }
 
     except HTTPException:

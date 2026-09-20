@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 
 from quantum_engine.basic_circuits import run_gate
 
@@ -17,6 +19,33 @@ app = FastAPI(
     ),
     version="1.0.0",
 )
+
+
+# ==================================================
+# Malformed requests answer 400, not FastAPI's
+# default 422, with one clear validation message.
+# ==================================================
+
+@app.exception_handler(RequestValidationError)
+async def validation_error_as_bad_request(
+    request: Request,
+    exc: RequestValidationError,
+):
+    return JSONResponse(
+        status_code=400,
+        content={"detail": format_validation_error(exc)},
+    )
+
+
+def format_validation_error(exc: RequestValidationError) -> str:
+    for error in exc.errors():
+        if str(error.get("type", "")).startswith("value_"):
+            message = error.get("msg", "")
+            return message.removeprefix("Value error, ")
+
+    error = exc.errors()[0]
+    location = ".".join(str(part) for part in error.get("loc", []))
+    return f"Invalid request at {location}: {error.get('msg', 'malformed value')}"
 
 
 # ==================================================
