@@ -30,9 +30,9 @@ def _gate_count(circuit):
 
 def generate_data(dataset_type="moons", n_samples=100):
     if dataset_type == "moons":
-        X, y = make_moons(n_samples=n_samples, noise=0.1)
+        X, y = make_moons(n_samples=n_samples, noise=0.1, random_state=42)
     elif dataset_type == "circles":
-        X, y = make_circles(n_samples=n_samples, factor=0.5, noise=0.1)
+        X, y = make_circles(n_samples=n_samples, factor=0.5, noise=0.1, random_state=42)
     else:
         # Default simple binary classification
         X = np.random.rand(n_samples, 2)
@@ -60,7 +60,7 @@ def run_vqc_experiment(dataset_type="moons", iterations=10):
         history.append(float(loss))
         parameter_history.append([float(w) for w in np.asarray(weights).ravel()])
 
-    sampler = Sampler()
+    sampler = Sampler(default_shots=1024, seed=42)
     vqc = VQC(
         feature_map=feature_map,
         ansatz=ansatz,
