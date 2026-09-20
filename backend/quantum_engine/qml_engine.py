@@ -62,12 +62,13 @@ def run_vqc_experiment(dataset_type="moons", iterations=10):
 
     sampler = Sampler(default_shots=1024, seed=42)
     vqc = VQC(
-        feature_map=feature_map,
-        ansatz=ansatz,
-        optimizer=COBYLA(maxiter=iterations),
-        callback=callback,
-        sampler=sampler
-    )
+    feature_map=feature_map,
+    ansatz=ansatz,
+    optimizer=COBYLA(maxiter=iterations),
+    callback=callback,
+    sampler=sampler,
+    initial_point=np.zeros(ansatz.num_parameters)
+)
 
     vqc.fit(X_train, y_train)
 
