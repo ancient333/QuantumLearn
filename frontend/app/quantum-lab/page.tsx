@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
@@ -2223,7 +2223,7 @@ export default function QuantumLabPage() {
                     </div>
 
                     <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/10 text-xs text-purple-200 leading-relaxed">
-                      💡 <strong>Quantum Advantage Note:</strong> The quantum variational circuit uses a ZZFeatureMap and RealAmplitudes ansatz on {qmlData?.qubit_count ?? "—"} qubits with {qmlData?.gate_count ?? "—"} gates at depth {qmlData?.circuit_depth ?? "—"}, executed on the Aer simulator to identify non-linear decision boundaries.
+                      💡 <strong>Performance Note:</strong> The quantum variational circuit uses a ZZFeatureMap and RealAmplitudes ansatz on {qmlData?.qubit_count ?? "—"} qubits with {qmlData?.gate_count ?? "—"} gates at depth {qmlData?.circuit_depth ?? "—"}, executed using StatevectorSampler to identify non-linear decision boundaries.
                     </div>
                   </div>
                 </div>
