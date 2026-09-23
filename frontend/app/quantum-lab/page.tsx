@@ -2166,7 +2166,6 @@ export default function QuantumLabPage() {
                 )}
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
                   <StatCard label="Accuracy Score" value={qmlData ? `${(qmlData.accuracy * 100).toFixed(1)}%` : "—"} accent="text-cyan-300" />
-                  <StatCard label="Final Loss" value={qmlData && (qmlData.loss_history?.length ?? 0) > 0 ? qmlData.loss_history![qmlData.loss_history!.length - 1].toFixed(3) : "—"} accent="text-purple-300" />
                   <StatCard label="Qubit Allocation" value={qmlData ? qmlData.qubit_count : "—"} accent="text-pink-300" />
                   <StatCard label="Quantum Gate Count" value={qmlData ? qmlData.gate_count : "—"} accent="text-emerald-300" />
                   <StatCard label="Circuit Depth" value={qmlData ? qmlData.circuit_depth : "—"} accent="text-amber-300" />
