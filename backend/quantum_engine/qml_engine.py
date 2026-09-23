@@ -66,8 +66,7 @@ def run_vqc_experiment(dataset_type="moons", iterations=10):
     ansatz=ansatz,
     optimizer=COBYLA(maxiter=iterations),
     callback=callback,
-    sampler=sampler,
-    initial_point=np.zeros(ansatz.num_parameters)
+    sampler=sampler
 )
 
     vqc.fit(X_train, y_train)
