@@ -1982,7 +1982,7 @@ export default function QuantumLabPage() {
                           </button>
                         </div>
                         <p className="mt-2 text-sm text-slate-400">
-                          Variational Quantum Classifier results simulated live on Qiskit Aer backend.
+                         Variational Quantum Classifier results simulated using StatevectorSampler.
                         </p>
                         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
                           <StatCard label="Accuracy" value={`${(qmlData.accuracy * 100).toFixed(1)}%`} accent="text-cyan-300" />
